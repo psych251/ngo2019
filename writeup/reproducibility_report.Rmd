@@ -1,6 +1,6 @@
 ---
-title: "Reproducibility Report for Study X by Sample & Sample (20xx, Psychological Science)"
-author: "Reproducibility Project Author[s] (contact information)"
+title: "Reproducibility Report for 'Development of Holistic Episodic Recollection' by Ngo et al. (2019, Psychological Science)"
+author: "Shawn T. Schwartz (stschwartz@stanford.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
@@ -8,29 +8,38 @@ output:
     toc_depth: 3
     toc_float:
       collapsed: false
+bibliography: references.bib
+csl: apa.csl
+link-citations: yes
 ---
 
 <!-- Reproducibility reports should all use this template to standardize reporting across projects. These reports will be public supplementary materials that accompany the summary report(s) of the aggregate results. -->
 
 ## Introduction
 
-[No abstract is needed.]  Each reproducibility project will have a straightforward, no frills report of the study and reproducibility results. These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of your attempt to reproduce the results. Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for your reproducibility attempt, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
+Ngo et al. [-@ngo2019development] originally investigated the ontogeny of holistic episodic memory recollection in children and younger adults. The authors sought to clarify age-dependency for memory mechanisms allowing individuals to holistically retrieve all elements of a previously encoded visual memory when presented with partial cues. This memory mechanism, generally referred to as *pattern completion*, is a neural computation supported by the hippocampus reactivating complete episodic memory representations with only a partial cue [@marr1971simple; @mcclelland1995there; @norman2003modeling]. The primary dependent variable in the original study was *retrieval dependency* (i.e., the coherence of within-event retrieval being mutually contingent: *all accurate or inaccurate*) for previously encoded multielement event stimuli each containing a scene, a person, and an object. Following the encoding phase, participants engaged in a self-paced four-alternative forced-choice cued recognition test. The retrieval dependency measure served as the index for assessing pattern completion. The authors observed retrieval dependency in all three age groups (4-year-olds, 6-year-olds, younger adults), and that retrieval dependency was disassociated from overall retrieval accuracy.
 
-**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+In the present replication, I aim to replicate the younger adult finding in a more diverse sample of younger adults via the Prolific online recruitment platform. This replication is important for my specific research program as I am ultimately aiming to build biologically plausible computation models of selective episodic memory retrieval mechanisms, which heavily relies on the neural computation of pattern completion in the hippocampus. Here, the same stimuli will be used with the same procedure of the original study; though, the procedure will be modified to take half the amount of time to complete as the original study. An example of the stimuli are presented below in Figure 1.
+
+```{r example-stim, fig.margin=TRUE, fig.cap="Fig. 1: Example stimuli from Ngo et al. (2019).", echo=FALSE}
+knitr::include_graphics("figures/example_stim.png")
+```
+
+The key analyses of interest will be first testing for *retrieval dependency* via a one-sample *t*-test to determine whether dependency (observed data – an independent model) exceeds zero. This analysis mimics the key analysis of the original study [@ngo2019development]. Similar to the original study, I will also check for sex differences on overall retrieval accuracy. In addition to the analyses reported in the original study, I will use a linear modeling approach to investigate whether there appears to be any age effects for retrieval accuracy and retrieval dependency. In addition to the typical frequentist statistics, Bayes factors will be reported for each analysis described above.
 
 ### Justification for choice of study
 
-Please describe why you chose to reproduce the results of this study.
+I aim to reproduce the results of this study in an attempt to validate the stimuli/task used by the original authors as an appropriate behavioral assessment of hippocampal pattern completion from multielement episodic memories. Furthermore, I would ultimately like to extend the prior study and utilize a similar paradigm with more complex visual stimuli that represent more realistic environments and scenes, in addition to investigating how holistic multielement retrieval from partial cues are impacted when cues vary in their associated reward.
 
 ### Anticipated challenges
 
-Do you anticipate running into any challenges when attempting to reproduce these result(s)? If so please, list them here.
+The only challenge I anticipate in replicating this study is the length of time it will take to complete via an online collection format. Thus, I will be modifying the task to take half the amount of time to complete. This will be crucial in validating the generalizability of the task reported in the original study for downstream implementations of different methodological procedures than those used originally [@ngo2019development].
 
 ### Links
 
-Project repository (on Github): 
+Project repository (on Github): https://github.com/psych251/ngo2019
 
-Original paper (as hosted in your repo): 
+Original paper (as hosted in your repo): https://github.com/psych251/ngo2019/blob/main/original_paper/ngoetal2019.pdf
 
 ## Methods
 
@@ -91,3 +100,5 @@ Open the discussion section with a paragraph summarizing the primary result from
 ### Commentary
 
 Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis of the dataset, (b) assessment of the meaning of the successful or unsuccessful reproducibility attempt - e.g., for a failure to reproduce the original findings, are the differences between original and present analyses ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the reproducibility attempt (if you contacted them).  None of these need to be long.
+
+## References
