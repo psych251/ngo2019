@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My experiment</title>
+    <script src="https://unpkg.com/jspsych@7.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-instructions@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-fullscreen@1.0.0"></script>
+    <script src="https://unpkg.com/@jspsych/plugin-preload@1.0.0"></script>
+    <link href="https://unpkg.com/jspsych@7.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <style>
+        .upperline {
+            text-transform: uppercase;
+            text-decoration: underline;
+        }
+
+        .dem {
+            margin-block-start: 0em;
+            margin-block-end: 0em;
+            text-align: left;
+            font-weight: 500;
+            font-size: 1.3em;
+            padding: .2em 0;
+            color: #069;
+        }
+
+        .shim {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            font-style: italic;
+        }
+
+        .small {
+            font-size: .95em;
+        }
+
+        .dem-sec {
+            margin-top: 5px;
+            margin-bottom: 50px;
+        }
+
+        .radioButtons > label {
+            margin: 0em 1em 0em 1em;
+            display: block;
+            text-align: left;
+        }
+
+        .radioButtons > label:hover {
+            background-color: #069;
+            border-radius: 3px;
+            color: #fff;
+        }
+        
+        .radioButtons input {
+            margin: 0em .5em .3em .5em;
+        }
+        
+        .radioButtons input:focus {
+            outline: none;
+        } 
+
+        .consent {
+            width: 500px;
+        }
+        
+        .consent label {
+            width: 425px;
+            display: inline-block;
+        }
+
+        .consent textarea {
+            background: none repeat scroll 0% 0% #F2F2F2;
+            border: 1px solid #CCC;
+            font-family: serif;
+            height: 300px;
+            width: 100%;
+            overflow: auto;
+            padding: 6px;
+            border-radius: 3px;
+            display: block;
+        }
+
+        .collectorInput {
+            padding: .3em .4em;
+            border-radius: 4px;
+            border: 1px solid #bfbfbf;
+        }
+
+        .collectorInput:active, .collectorInput:hover, .collectorInput:focus {
+            border-color: #09c;
+            outline: none;
+            box-shadow: inset 1px 1px 4px 0px #C9C9C9;
+        }
+    </style>
+  </head>
+  <body></body>
+  <script>
+
+    // add warning if tab/window is closed
+    window.onbeforeunload = function(){
+        return "Are you sure you want to leave? Your progress will not be saved and your data will not be recorded."
+    }
+
+    // constants
+    const VERBOSE = true;
+    const STUDY_TIME = 50; //6000; // ms
+    const ISI = 500; // ms
+    const AFC_CHOICES = ['e', 'u', 'c', 'n'];
+    const EXAMPLE_ENCODING = "img/encoding_events/Example.jpg";
+    const EXAMPLE_TESTING = "img/testing_events/Example.png";
+
+    // encoding stimuli
+    var num_events = 24;
+    var encoding_stim_arr = [];
+    var encoding_stim_dict = [];
+    for(var i = 1; i <= num_events; i++) {
+    encoding_stim_arr.push("img/encoding_events/Event_" + i + ".jpg");
+    encoding_stim_dict.push({stimulus: "img/encoding_events/Event_" + i + ".jpg"})
+    }
+
+    if(VERBOSE) console.log(encoding_stim_dict);
+
+    // retrieval stimuli
+    var retrieval_groups = ['Ab', 'Ac', 'Ba', 'Bc', 'Ca', 'Cb'];
+    var retrieval_stim_arr = [];
+    var retrieval_stim_dict = [];
+    var afc_assignment_counter = 1;
+
+    for(var i = 0; i < retrieval_groups.length; i++) {
+        for(var j = 1; j <= num_events; j++) {
+        if(afc_assignment_counter > 4) {
+            afc_assignment_counter = 1;
+        }
+        if(afc_assignment_counter % 4 != 0) {
+            afc_assignment_counter = afc_assignment_counter;
+        }
+        retrieval_stim_arr.push("img/testing_events/" + retrieval_groups[i] + "/Test_" + retrieval_groups[i] +  "_Event_" + j + ".jpg");
+        retrieval_stim_dict.push({
+            stimulus: "img/testing_events/" + retrieval_groups[i] + "/Test_" + retrieval_groups[i] +  "_Event_" + j + ".jpg", 
+            retrieval_group: retrieval_groups[i],
+            correct_response: AFC_CHOICES[afc_assignment_counter-1]
+        });
+        afc_assignment_counter += 1;
+        }
+    }
+
+    if(VERBOSE) console.log(retrieval_stim_dict);
+
+    // init jsPsych
+    var jsPsych = initJsPsych({
+        on_finish: function() {
+            jsPsych.data.displayData();
+        }
+    });
+
+    // capture info from Prolific
+    var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+
+    jsPsych.data.addProperties({
+        subject_id: subject_id,
+        study_id: study_id,
+        session_id: session_id
+    });
+
+    // create timeline
+    var timeline = [];
+
+    // preload stim
+    var preload = {
+        type: jsPsychPreload,
+        images: [encoding_stim_arr, retrieval_stim_arr],
+        show_detailed_errors: true
+    };
+    timeline.push(preload);
+
+    // force browser into full screen mode
+    var enter_fullscreen = {
+        type: jsPsychFullscreen,
+        fullscreen_mode: true
+    };
+    timeline.push(enter_fullscreen);
+
+    // add welcome message
+    var welcome = {
+        type: jsPsychHtmlKeyboardResponse,
+        choices: 'b',
+        post_trial_gap: 1000,
+        stimulus: 'Welcome to the experiment. <br /><br />For this study, <strong>please use</strong> a laptop or desktop computer (not a mobile phone or tablet). Also, please use either <u>Chrome or Firefox</u>. <br /><br />Once you begin, <strong>DO NOT</strong> refresh the browser, as the experiment will reset and you will lose your progress. <br /><br />Press the <strong class="upperline">B</strong> key on your keyboard to begin.'
+    };
+    timeline.push(welcome);
+
+    // demographics survey
+    var demographics_survey = {
+        type: jsPsychSurveyHtmlForm,
+        preamble: '<h2 style="text-align: left; color: #069;">Basic Information</h2>',
+        html: '<section class="dem-sec radioButtons"><h3 class="dem">Gender</h3><label><input name="Gender" type="radio" value="Male" required/>Male</label><label><input name="Gender" type="radio" value="Female" required/>Female</label><label><input name="Gender" type="radio" value="Other" required/>Other</label><label><input name="Gender" type="radio" value="PreferNotToAnswer" required/>Prefer Not To Answer</label></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">Age</h3><input name="Age" class="wide collectorInput" type="text" pattern="[0-9][0-9]" value="" autocomplete="off" required/></label></section>'+
+                '<section class="dem-sec radioButtons"><h3 class="dem">Are you color blind?</h3><label><input name="ColorBlind" type="radio" value="Yes" required/>Yes</label><label><input name="ColorBlind" type="radio" value="No" required/>No</label></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">Education</h3><select name="Education" class="wide collectorInput" required><option value="" default selected>Select Level</option><option>Some High School</option><option>High School Graduate</option><option>Some College, no degree</option><option>Associates degree</option><option>Bachelors degree</option><option>Graduate degree (Masters, Doctorate, etc.)</option></select></label></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">What is your estimated household annual income?</h3><select name="Income" class="wide collectorInput" required><option value="" default selected>Select Level</option><option>$0-$24,999</option><option>$25,000-$49,999</option><option>$50,000-$74,999</option><option>$75,000-$99,999</option><option>$100,000-$124,999</option><option>$125,000-$149,999</option><option>$150,000+</option></select></label></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">Ethnicity</h3><select name="Race" required class="wide collectorInput"><option value="" default selected>Select one</option><option>American Indian/Alaskan Native</option><option>Asian/Pacific Islander</option><option>Black</option><option>White</option><option>Other/unknown</option></select></label></section>'+
+                '<section class="dem-sec radioButtons"><h3 class="dem">Do you speak english fluently?</h3><label><input name="Fluent" type="radio" value="Yes" required/>Yes</label><label><input name="Fluent" type="radio" value="No" required/>No</label></section>'+
+                '<section class="dem-sec"><h3 class="dem">At what age did you start learning English?</h3><input name="AgeEnglish" type="text" value="" autocomplete="off" class="wide collectorInput"/><div class="small shim">If English is your first language please enter 0.</div></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">What is your country of residence?</h3><input name="Country" type="text" value="" autocomplete="off" class="wide collectorInput"/></label></section>'+
+                '<section class="dem-sec consent"><legend><h3 class="dem">Informed Consent</h3></legend><textarea readonly>CONSENT FORM GOES HERE>>></textarea><label><span class="shim">Check this box if you have read, understand, and agree to the Informed Consent above.</span><input type="checkbox" name="consent" required/></label></section>'  
+    };
+    timeline.push(demographics_survey);
+
+    // encoding instructions
+    var encoding_instructions = {
+        type: jsPsychInstructions,
+        pages: [
+            'In this task you will see visual illustrations of many different stories. <br />You should pay attention to all of the different elements, including the scene, person, and object in each story.',
+            'Below is an example story you may see: ' + '<br />' + '<img src="' + EXAMPLE_ENCODING + '"></img>',
+            'Do not use any tools other than <strong>your own memory</strong> to complete this task.',
+            'Please ensure you are in a quiet environment free from distractions, and click "Next >" when you are ready to begin.'
+        ],
+        show_clickable_nav: true,
+        allow_keys: false,
+        post_trial_gap: 2500,
+    };
+    timeline.push(encoding_instructions);
+
+    // TODO: add server connection and save data
+
+    // define fixation trial
+    var fixation = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: "NO_KEYS",
+      trial_duration: ISI,
+      data: {
+        task: 'fixation'
+      }
+    };
+
+    // define encoding trial
+    var encoding = {
+        type: jsPsychImageKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        choices: "NO_KEYS",
+        trial_duration: STUDY_TIME
+    };
+
+    // define encoding procedure
+    var encoding_procedure = {
+        timeline: [fixation, encoding],
+        timeline_variables: encoding_stim_dict,
+        randomize_order: true
+    };
+    timeline.push(encoding_procedure);
+
+    // testing instructions
+    var testing_instructions = {
+        type: jsPsychInstructions,
+        pages: [
+            'You will now be tested on the stories you just viewed.',
+            'In the next phase of this task, you will see either one of the scenes, persons, or objects from the stories you previously viewed. <br />These cues will be placed on the left side of the screen.',
+            'On the right side of the screen, next to the cue, you will see a <strong style="color: red;">red</strong> box with four choices inside. <br />Please select which one of the four options belonged to the same story as the cue on the left side of the screen.',
+            'Below is an example of what you may see: ' + '<br />' + '<img src="' + EXAMPLE_TESTING + '"></img><br /><br /><ul><li>Click <strong class="upperline">' + AFC_CHOICES[0] + '</strong> on your keyboard to select the top-left item</li><li>Click <strong class="upperline">' + AFC_CHOICES[1] + '</strong> on your keyboard to select the top-right item</li><li>Click <strong class="upperline">' + AFC_CHOICES[2] + '</strong> on your keyboard to select the bottom-left item</li><li>Click <strong class="upperline">' + AFC_CHOICES[3] + '</strong> on your keyboard to select the bottom-right item</li></ul>',
+            'Do your best to remember which of the 4 items in the red box was part of the story indicated by the cue presented to the left of the red box. <br />You must provide an answer to move on to the next question. <br /><strong>Please provide your response to each question as quickly as you can.</strong>',
+            'If you are ready to continue, please click "Next >".'
+        ],
+        show_clickable_nav: true,
+        allow_keys: false,
+        post_trial_gap: 2500,
+    };
+    timeline.push(testing_instructions);
+
+    // define test trial
+    var test = {
+        type: jsPsychImageKeyboardResponse,
+        stimulus: jsPsych.timelineVariable('stimulus'),
+        choices: AFC_CHOICES,
+        data: {
+            task: 'response',
+            correct_response: jsPsych.timelineVariable('correct_response')
+        },
+        on_finish: function(data) {
+            data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+        }
+    };
+    
+    // define test procedure
+    var testing_procedure = {
+        timeline: [test],
+        timeline_variables: retrieval_stim_dict,
+        randomize_order: true
+    };
+    timeline.push(testing_procedure);
+
+    // exit full screen mode
+    var exit_fullscreen = {
+        type: jsPsychFullscreen,
+        fullscreen_mode: false,
+        delay_after: 0
+    };
+    timeline.push(exit_fullscreen);
+
+    // post experiment survey
+    var post_exp_survey = {
+        type: jsPsychSurveyText,
+        preamble: '<h2 style="text-align: left; color: #069;">Final Questions</h2>',
+        questions: [
+            {prompt: 'Did you use anything other than your own memory to complete this task? You will receive payment no matter how you response here.', rows: 4},
+            {prompt: 'Did you experience any technical issues while going through the task? If so, please try to describe in as much detail as necessary for us to look further into it.', rows: 4},
+            {prompt: 'Is there anything else you would like to share with us?', rows: 4}
+        ]
+    };
+    timeline.push(post_exp_survey);
+
+    // execute experiment
+    jsPsych.run(timeline);
+
+  </script>
+</html>
