@@ -239,8 +239,16 @@
     // init jsPsych
     var jsPsych = initJsPsych({
         on_finish: function() {
-            // jsPsych.data.displayData();
-            saveData(jsPsych.data.get().csv());
+            jsPsych.data.displayData();
+            var all_data = jsPsych.data.get();
+            console.log(all_data.csv());
+            saveData(file_pattern_data, all_data.csv());
+            console.log("Data saved at: " + file_pattern_data);
+            
+            var interaction_data = jsPsych.data.getInteractionData();
+            console.log(interaction_data.csv());
+            saveData(file_pattern_focus, interaction_data.csv());
+            console.log("Data saved at: " + file_pattern_focus);
         }
     });
 
@@ -254,6 +262,10 @@
         study_id: study_id,
         session_id: session_id
     });
+    
+    // make filename patterns for each participants data
+    var file_pattern_data = subject_id + "_" + study_id + "_" + session_id + "_data";
+    var file_pattern_focus = subject_id + "_" + study_id + "_" + session_id + "_focus";
 
     // create timeline
     var timeline = [];
