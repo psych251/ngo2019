@@ -239,7 +239,9 @@
     // init jsPsych
     var jsPsych = initJsPsych({
         on_finish: function() {
-            jsPsych.data.displayData();
+            // jsPsych.data.displayData();
+
+            // gather and save all data to server
             var all_data = jsPsych.data.get();
             console.log(all_data.csv());
             saveData(file_pattern_data, all_data.csv());
@@ -249,6 +251,9 @@
             console.log(interaction_data.csv());
             saveData(file_pattern_focus, interaction_data.csv());
             console.log("Data saved at: " + file_pattern_focus);
+
+            // auto redirect back to prolific with completion code (tbd)
+            window.location = "https://app.prolific.co/submissions/complete?cc=XXXXXXX";
         }
     });
 
