@@ -129,7 +129,27 @@
     var retrieval_stim_dict = [];
     var afc_assignment_counter = 1;
 
+    /**
+     * counterbalanced orderings by retrieval group (positions)
+     * Ab: 1, 2, 3, 4 *
+     * Ac: 2, 3, 4, 1 **
+     * Ba: 3, 4, 1, 2
+     * Bc: 4, 1, 2, 3
+     * Ca: 1, 2, 3, 4 *
+     * Cb: 2, 3, 4, 1 **
+     */
+
+    // load stim array for all retrieval groups
     for(var i = 0; i < retrieval_groups.length; i++) {
+        for(var j = 1; j <= num_events; j++) {
+            retrieval_stim_arr.push("img/testing_events/" + retrieval_groups[i] + "/Test_" + retrieval_groups[i] +  "_Event_" + j + ".jpg");
+        }
+    }
+
+    // separate dictionary generations by counterbalanced group (to ensure proper correct_response assignment)
+    // Ab/Ca (1, 2, 3, 4)
+    var retrieval_groups_subset_one = ['Ab', 'Ca'];
+    for(var i = 0; i < retrieval_groups_subset_one.length; i++) {
         for(var j = 1; j <= num_events; j++) {
         if(afc_assignment_counter > 4) {
             afc_assignment_counter = 1;
@@ -137,10 +157,69 @@
         if(afc_assignment_counter % 4 != 0) {
             afc_assignment_counter = afc_assignment_counter;
         }
-        retrieval_stim_arr.push("img/testing_events/" + retrieval_groups[i] + "/Test_" + retrieval_groups[i] +  "_Event_" + j + ".jpg");
         retrieval_stim_dict.push({
-            stimulus: "img/testing_events/" + retrieval_groups[i] + "/Test_" + retrieval_groups[i] +  "_Event_" + j + ".jpg", 
-            retrieval_group: retrieval_groups[i],
+            stimulus: "img/testing_events/" + retrieval_groups_subset_one[i] + "/Test_" + retrieval_groups_subset_one[i] +  "_Event_" + j + ".jpg", 
+            retrieval_group: retrieval_groups_subset_one[i],
+            correct_response: AFC_CHOICES[afc_assignment_counter-1]
+        });
+        afc_assignment_counter += 1;
+        }
+    }
+
+    // Ba (3, 4, 1, 2)
+    var retrieval_groups_subset_two = ['Ba'];
+    afc_assignment_counter = 3;
+    for(var i = 0; i < retrieval_groups_subset_two.length; i++) {
+        for(var j = 1; j <= num_events; j++) {
+        if(afc_assignment_counter > 4) {
+            afc_assignment_counter = 1;
+        }
+        if(afc_assignment_counter % 4 != 0) {
+            afc_assignment_counter = afc_assignment_counter;
+        }
+        retrieval_stim_dict.push({
+            stimulus: "img/testing_events/" + retrieval_groups_subset_two[i] + "/Test_" + retrieval_groups_subset_two[i] +  "_Event_" + j + ".jpg", 
+            retrieval_group: retrieval_groups_subset_two[i],
+            correct_response: AFC_CHOICES[afc_assignment_counter-1]
+        });
+        afc_assignment_counter += 1;
+        }
+    }
+
+    // Bc (4, 1, 2, 3)
+    var retrieval_groups_subset_three = ['Bc'];
+    afc_assignment_counter = 4;
+    for(var i = 0; i < retrieval_groups_subset_three.length; i++) {
+        for(var j = 1; j <= num_events; j++) {
+        if(afc_assignment_counter > 4) {
+            afc_assignment_counter = 1;
+        }
+        if(afc_assignment_counter % 4 != 0) {
+            afc_assignment_counter = afc_assignment_counter;
+        }
+        retrieval_stim_dict.push({
+            stimulus: "img/testing_events/" + retrieval_groups_subset_three[i] + "/Test_" + retrieval_groups_subset_three[i] +  "_Event_" + j + ".jpg", 
+            retrieval_group: retrieval_groups_subset_three[i],
+            correct_response: AFC_CHOICES[afc_assignment_counter-1]
+        });
+        afc_assignment_counter += 1;
+        }
+    }
+
+    // Ac/Cb (2, 3, 4, 1)
+    var retrieval_groups_subset_four = ['Ac', 'Cb'];
+    afc_assignment_counter = 2;
+    for(var i = 0; i < retrieval_groups_subset_four.length; i++) {
+        for(var j = 1; j <= num_events; j++) {
+        if(afc_assignment_counter > 4) {
+            afc_assignment_counter = 1;
+        }
+        if(afc_assignment_counter % 4 != 0) {
+            afc_assignment_counter = afc_assignment_counter;
+        }
+        retrieval_stim_dict.push({
+            stimulus: "img/testing_events/" + retrieval_groups_subset_four[i] + "/Test_" + retrieval_groups_subset_four[i] +  "_Event_" + j + ".jpg", 
+            retrieval_group: retrieval_groups_subset_four[i],
             correct_response: AFC_CHOICES[afc_assignment_counter-1]
         });
         afc_assignment_counter += 1;
