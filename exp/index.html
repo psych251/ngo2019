@@ -228,10 +228,19 @@
 
     if(VERBOSE) console.log(retrieval_stim_dict);
 
+    // server connection to save data
+    function saveData(filename, filedata) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'save_data.php');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({filename: filename, filedata: filedata}));        
+    };
+
     // init jsPsych
     var jsPsych = initJsPsych({
         on_finish: function() {
-            jsPsych.data.displayData();
+            // jsPsych.data.displayData();
+            saveData(jsPsych.data.get().csv());
         }
     });
 
@@ -304,8 +313,6 @@
         post_trial_gap: 2500,
     };
     timeline.push(encoding_instructions);
-
-    // TODO: add server connection and save data
 
     // define fixation trial
     var fixation = {
