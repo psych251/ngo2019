@@ -115,6 +115,7 @@
     const AFC_CHOICES = ['e', 'u', 'c', 'n'];
     const EXAMPLE_ENCODING = "img/encoding_events/Example.jpg";
     const EXAMPLE_TESTING = "img/testing_events/Example.png";
+    const EXAMPLE_KEYBOARD = "img/instructions/kb_layout.png";
 
     // encoding stimuli
     var num_events = 24;
@@ -292,7 +293,7 @@
     // preload stim
     var preload = {
         type: jsPsychPreload,
-        images: [EXAMPLE_ENCODING, EXAMPLE_TESTING, encoding_stim_arr, retrieval_stim_arr],
+        images: [EXAMPLE_ENCODING, EXAMPLE_TESTING, EXAMPLE_KEYBOARD, encoding_stim_arr, retrieval_stim_arr],
         show_detailed_errors: true
     };
     timeline.push(preload);
@@ -381,6 +382,7 @@
             'On the right side of the screen, next to the cue, you will see a <strong style="color: red;">red</strong> box with four choices inside. <br />Please select which one of the four options belonged to the same story as the cue on the left side of the screen.',
             'Below is an example of what you may see: ' + '<br />' + '<img src="' + EXAMPLE_TESTING + '"></img><br /><br /><ul><li>Click <strong class="upperline">' + AFC_CHOICES[0] + '</strong> on your keyboard to select the top-left item</li><li>Click <strong class="upperline">' + AFC_CHOICES[1] + '</strong> on your keyboard to select the top-right item</li><li>Click <strong class="upperline">' + AFC_CHOICES[2] + '</strong> on your keyboard to select the bottom-left item</li><li>Click <strong class="upperline">' + AFC_CHOICES[3] + '</strong> on your keyboard to select the bottom-right item</li></ul>',
             'Do your best to remember which of the 4 items in the red box was part of the story indicated by the cue presented to the left of the red box. <br />You must provide an answer to move on to the next question. <br /><strong>Please provide your response to each question as quickly as you can.</strong>',
+            'Please orient your fingers to the following key positions on your keyboard to indicate your choices for each trial on the following task: ' + '<br />' + '<img src="' + EXAMPLE_KEYBOARD + '"></img>',
             'If you are ready to continue, please click "Next >".'
         ],
         show_clickable_nav: true,
