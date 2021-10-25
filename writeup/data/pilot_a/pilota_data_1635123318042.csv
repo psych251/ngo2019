@@ -1,0 +1,201 @@
+success,timeout,failed_images,failed_audio,failed_video,trial_type,trial_index,time_elapsed,internal_node_id,subject_id,study_id,session_id,rt,stimulus,response,view_history,task,correct_response,correct
+TRUE,FALSE,[],[],[],preload,0,69,0.0-0.0,pilota_data_1635123318042,,,,,,,,,
+TRUE,,,,,fullscreen,1,6181,0.0-1.0,pilota_data_1635123318042,,,,,,,,,
+,,,,,html-keyboard-response,2,8162,0.0-2.0,pilota_data_1635123318042,,,1977,"Welcome to the experiment. <br /><br />For this study, <strong>please use</strong> a laptop or desktop computer (not a mobile phone or tablet). Also, please use either <u>Chrome or Firefox</u>. <br /><br />Once you begin, <strong>DO NOT</strong> refresh the browser, as the experiment will reset and you will lose your progress. <br /><br />Press the <strong class=""upperline"">B</strong> key on your keyboard to begin.",b,,,,
+,,,,,survey-html-form,3,41899,0.0-3.0,pilota_data_1635123318042,,,32730,,"{""Gender"":""Male"",""Age"":""24"",""ColorBlind"":""No"",""Education"":""Graduate degree (Masters, Doctorate, etc.)"",""Income"":""$100,000-$124,999"",""Race"":""White"",""Fluent"":""Yes"",""AgeEnglish"":""0"",""Country"":""usa"",""consent"":""on""}",,,,
+,,,,,instructions,4,45273,0.0-4.0,pilota_data_1635123318042,,,3373,,,"[{""page_index"":0,""viewing_time"":1154},{""page_index"":1,""viewing_time"":821},{""page_index"":2,""viewing_time"":889},{""page_index"":3,""viewing_time"":509}]",,,
+,,,,,html-keyboard-response,5,48283,0.0-5.0-0.0,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,6,54296,0.0-5.0-1.0,pilota_data_1635123318042,,,null,img/encoding_events/Event_18.jpg,null,,,,
+,,,,,html-keyboard-response,7,54801,0.0-5.0-0.1,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,8,60810,0.0-5.0-1.1,pilota_data_1635123318042,,,null,img/encoding_events/Event_8.jpg,null,,,,
+,,,,,html-keyboard-response,9,61316,0.0-5.0-0.2,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,10,67324,0.0-5.0-1.2,pilota_data_1635123318042,,,null,img/encoding_events/Event_13.jpg,null,,,,
+,,,,,html-keyboard-response,11,67827,0.0-5.0-0.3,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,12,73833,0.0-5.0-1.3,pilota_data_1635123318042,,,null,img/encoding_events/Event_9.jpg,null,,,,
+,,,,,html-keyboard-response,13,74340,0.0-5.0-0.4,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,14,80344,0.0-5.0-1.4,pilota_data_1635123318042,,,null,img/encoding_events/Event_19.jpg,null,,,,
+,,,,,html-keyboard-response,15,80851,0.0-5.0-0.5,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,16,86856,0.0-5.0-1.5,pilota_data_1635123318042,,,null,img/encoding_events/Event_23.jpg,null,,,,
+,,,,,html-keyboard-response,17,87363,0.0-5.0-0.6,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,18,93367,0.0-5.0-1.6,pilota_data_1635123318042,,,null,img/encoding_events/Event_16.jpg,null,,,,
+,,,,,html-keyboard-response,19,93874,0.0-5.0-0.7,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,20,99882,0.0-5.0-1.7,pilota_data_1635123318042,,,null,img/encoding_events/Event_14.jpg,null,,,,
+,,,,,html-keyboard-response,21,100389,0.0-5.0-0.8,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,22,106395,0.0-5.0-1.8,pilota_data_1635123318042,,,null,img/encoding_events/Event_11.jpg,null,,,,
+,,,,,html-keyboard-response,23,106901,0.0-5.0-0.9,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,24,112908,0.0-5.0-1.9,pilota_data_1635123318042,,,null,img/encoding_events/Event_1.jpg,null,,,,
+,,,,,html-keyboard-response,25,113415,0.0-5.0-0.10,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,26,119433,0.0-5.0-1.10,pilota_data_1635123318042,,,null,img/encoding_events/Event_21.jpg,null,,,,
+,,,,,html-keyboard-response,27,119940,0.0-5.0-0.11,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,28,125948,0.0-5.0-1.11,pilota_data_1635123318042,,,null,img/encoding_events/Event_3.jpg,null,,,,
+,,,,,html-keyboard-response,29,126451,0.0-5.0-0.12,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,30,132459,0.0-5.0-1.12,pilota_data_1635123318042,,,null,img/encoding_events/Event_4.jpg,null,,,,
+,,,,,html-keyboard-response,31,132965,0.0-5.0-0.13,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,32,138973,0.0-5.0-1.13,pilota_data_1635123318042,,,null,img/encoding_events/Event_22.jpg,null,,,,
+,,,,,html-keyboard-response,33,139479,0.0-5.0-0.14,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,34,145487,0.0-5.0-1.14,pilota_data_1635123318042,,,null,img/encoding_events/Event_2.jpg,null,,,,
+,,,,,html-keyboard-response,35,145992,0.0-5.0-0.15,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,36,152000,0.0-5.0-1.15,pilota_data_1635123318042,,,null,img/encoding_events/Event_24.jpg,null,,,,
+,,,,,html-keyboard-response,37,152504,0.0-5.0-0.16,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,38,158511,0.0-5.0-1.16,pilota_data_1635123318042,,,null,img/encoding_events/Event_7.jpg,null,,,,
+,,,,,html-keyboard-response,39,159018,0.0-5.0-0.17,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,40,165025,0.0-5.0-1.17,pilota_data_1635123318042,,,null,img/encoding_events/Event_17.jpg,null,,,,
+,,,,,html-keyboard-response,41,165530,0.0-5.0-0.18,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,42,171536,0.0-5.0-1.18,pilota_data_1635123318042,,,null,img/encoding_events/Event_10.jpg,null,,,,
+,,,,,html-keyboard-response,43,172041,0.0-5.0-0.19,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,44,178047,0.0-5.0-1.19,pilota_data_1635123318042,,,null,img/encoding_events/Event_6.jpg,null,,,,
+,,,,,html-keyboard-response,45,178552,0.0-5.0-0.20,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,46,184557,0.0-5.0-1.20,pilota_data_1635123318042,,,null,img/encoding_events/Event_12.jpg,null,,,,
+,,,,,html-keyboard-response,47,185063,0.0-5.0-0.21,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,48,191067,0.0-5.0-1.21,pilota_data_1635123318042,,,null,img/encoding_events/Event_20.jpg,null,,,,
+,,,,,html-keyboard-response,49,191571,0.0-5.0-0.22,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,50,197579,0.0-5.0-1.22,pilota_data_1635123318042,,,null,img/encoding_events/Event_15.jpg,null,,,,
+,,,,,html-keyboard-response,51,198085,0.0-5.0-0.23,pilota_data_1635123318042,,,null,"<div style=""font-size:60px;"">+</div>",null,,fixation,,
+,,,,,image-keyboard-response,52,204090,0.0-5.0-1.23,pilota_data_1635123318042,,,null,img/encoding_events/Event_5.jpg,null,,,,
+,,,,,instructions,53,222022,0.0-6.0,pilota_data_1635123318042,,,17932,,,"[{""page_index"":0,""viewing_time"":2507},{""page_index"":1,""viewing_time"":1105},{""page_index"":2,""viewing_time"":740},{""page_index"":3,""viewing_time"":12127},{""page_index"":4,""viewing_time"":778},{""page_index"":5,""viewing_time"":673}]",,,
+,,,,,image-keyboard-response,54,228239,0.0-7.0-0.0,pilota_data_1635123318042,,,3706,img/testing_events/Bc/Test_Bc_Event_11.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,55,232414,0.0-7.0-0.1,pilota_data_1635123318042,,,4171,img/testing_events/Cb/Test_Cb_Event_14.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,56,241918,0.0-7.0-0.2,pilota_data_1635123318042,,,9502,img/testing_events/Cb/Test_Cb_Event_7.jpg,e,,response,n,FALSE
+,,,,,image-keyboard-response,57,245802,0.0-7.0-0.3,pilota_data_1635123318042,,,3881,img/testing_events/Ca/Test_Ca_Event_23.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,58,248879,0.0-7.0-0.4,pilota_data_1635123318042,,,3075,img/testing_events/Ba/Test_Ba_Event_22.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,59,253505,0.0-7.0-0.5,pilota_data_1635123318042,,,4625,img/testing_events/Cb/Test_Cb_Event_2.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,60,258997,0.0-7.0-0.6,pilota_data_1635123318042,,,5490,img/testing_events/Ca/Test_Ca_Event_18.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,61,265004,0.0-7.0-0.7,pilota_data_1635123318042,,,6004,img/testing_events/Cb/Test_Cb_Event_18.jpg,u,,response,c,FALSE
+,,,,,image-keyboard-response,62,269484,0.0-7.0-0.8,pilota_data_1635123318042,,,4478,img/testing_events/Ca/Test_Ca_Event_13.jpg,c,,response,e,FALSE
+,,,,,image-keyboard-response,63,279111,0.0-7.0-0.9,pilota_data_1635123318042,,,9625,img/testing_events/Ac/Test_Ac_Event_6.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,64,286087,0.0-7.0-0.10,pilota_data_1635123318042,,,6974,img/testing_events/Cb/Test_Cb_Event_21.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,65,295412,0.0-7.0-0.11,pilota_data_1635123318042,,,9323,img/testing_events/Ca/Test_Ca_Event_4.jpg,c,,response,n,FALSE
+,,,,,image-keyboard-response,66,298765,0.0-7.0-0.12,pilota_data_1635123318042,,,3351,img/testing_events/Ca/Test_Ca_Event_6.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,67,300542,0.0-7.0-0.13,pilota_data_1635123318042,,,1775,img/testing_events/Bc/Test_Bc_Event_22.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,68,307473,0.0-7.0-0.14,pilota_data_1635123318042,,,6928,img/testing_events/Bc/Test_Bc_Event_18.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,69,310535,0.0-7.0-0.15,pilota_data_1635123318042,,,3060,img/testing_events/Ab/Test_Ab_Event_18.jpg,c,,response,u,FALSE
+,,,,,image-keyboard-response,70,319735,0.0-7.0-0.16,pilota_data_1635123318042,,,9198,img/testing_events/Cb/Test_Cb_Event_6.jpg,e,,response,c,FALSE
+,,,,,image-keyboard-response,71,324865,0.0-7.0-0.17,pilota_data_1635123318042,,,5128,img/testing_events/Ca/Test_Ca_Event_7.jpg,n,,response,c,FALSE
+,,,,,image-keyboard-response,72,330455,0.0-7.0-0.18,pilota_data_1635123318042,,,5588,img/testing_events/Ba/Test_Ba_Event_12.jpg,n,,response,u,FALSE
+,,,,,image-keyboard-response,73,339669,0.0-7.0-0.19,pilota_data_1635123318042,,,9212,img/testing_events/Ab/Test_Ab_Event_9.jpg,c,,response,e,FALSE
+,,,,,image-keyboard-response,74,341470,0.0-7.0-0.20,pilota_data_1635123318042,,,1798,img/testing_events/Ab/Test_Ab_Event_2.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,75,348638,0.0-7.0-0.21,pilota_data_1635123318042,,,7165,img/testing_events/Ac/Test_Ac_Event_21.jpg,e,,response,u,FALSE
+,,,,,image-keyboard-response,76,350066,0.0-7.0-0.22,pilota_data_1635123318042,,,1426,img/testing_events/Cb/Test_Cb_Event_22.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,77,355442,0.0-7.0-0.23,pilota_data_1635123318042,,,5373,img/testing_events/Ca/Test_Ca_Event_14.jpg,n,,response,u,FALSE
+,,,,,image-keyboard-response,78,361046,0.0-7.0-0.24,pilota_data_1635123318042,,,5602,img/testing_events/Ba/Test_Ba_Event_5.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,79,362809,0.0-7.0-0.25,pilota_data_1635123318042,,,1762,img/testing_events/Ac/Test_Ac_Event_4.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,80,364273,0.0-7.0-0.26,pilota_data_1635123318042,,,1462,img/testing_events/Ac/Test_Ac_Event_22.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,81,368818,0.0-7.0-0.27,pilota_data_1635123318042,,,4542,img/testing_events/Ca/Test_Ca_Event_20.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,82,373455,0.0-7.0-0.28,pilota_data_1635123318042,,,4634,img/testing_events/Ac/Test_Ac_Event_23.jpg,c,,response,n,FALSE
+,,,,,image-keyboard-response,83,378797,0.0-7.0-0.29,pilota_data_1635123318042,,,5340,img/testing_events/Cb/Test_Cb_Event_19.jpg,u,,response,n,FALSE
+,,,,,image-keyboard-response,84,384163,0.0-7.0-0.30,pilota_data_1635123318042,,,5364,img/testing_events/Ac/Test_Ac_Event_13.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,85,394402,0.0-7.0-0.31,pilota_data_1635123318042,,,10237,img/testing_events/Ca/Test_Ca_Event_21.jpg,c,,response,e,FALSE
+,,,,,image-keyboard-response,86,399407,0.0-7.0-0.32,pilota_data_1635123318042,,,5003,img/testing_events/Ba/Test_Ba_Event_8.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,87,404605,0.0-7.0-0.33,pilota_data_1635123318042,,,5196,img/testing_events/Cb/Test_Cb_Event_12.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,88,406675,0.0-7.0-0.34,pilota_data_1635123318042,,,2067,img/testing_events/Ab/Test_Ab_Event_5.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,89,408430,0.0-7.0-0.35,pilota_data_1635123318042,,,1752,img/testing_events/Ab/Test_Ab_Event_13.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,90,412851,0.0-7.0-0.36,pilota_data_1635123318042,,,4419,img/testing_events/Bc/Test_Bc_Event_1.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,91,420795,0.0-7.0-0.37,pilota_data_1635123318042,,,7942,img/testing_events/Ba/Test_Ba_Event_14.jpg,u,,response,n,FALSE
+,,,,,image-keyboard-response,92,424874,0.0-7.0-0.38,pilota_data_1635123318042,,,4077,img/testing_events/Bc/Test_Bc_Event_5.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,93,437615,0.0-7.0-0.39,pilota_data_1635123318042,,,12739,img/testing_events/Ab/Test_Ab_Event_10.jpg,n,,response,u,FALSE
+,,,,,image-keyboard-response,94,442854,0.0-7.0-0.40,pilota_data_1635123318042,,,5237,img/testing_events/Ca/Test_Ca_Event_1.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,95,448941,0.0-7.0-0.41,pilota_data_1635123318042,,,6085,img/testing_events/Ab/Test_Ab_Event_17.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,96,458087,0.0-7.0-0.42,pilota_data_1635123318042,,,9144,img/testing_events/Ca/Test_Ca_Event_10.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,97,460033,0.0-7.0-0.43,pilota_data_1635123318042,,,1943,img/testing_events/Ca/Test_Ca_Event_16.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,98,465917,0.0-7.0-0.44,pilota_data_1635123318042,,,5881,img/testing_events/Ac/Test_Ac_Event_8.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,99,469978,0.0-7.0-0.45,pilota_data_1635123318042,,,4059,img/testing_events/Cb/Test_Cb_Event_10.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,100,471959,0.0-7.0-0.46,pilota_data_1635123318042,,,1979,img/testing_events/Ca/Test_Ca_Event_5.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,101,474838,0.0-7.0-0.47,pilota_data_1635123318042,,,2877,img/testing_events/Bc/Test_Bc_Event_14.jpg,n,,response,e,FALSE
+,,,,,image-keyboard-response,102,482367,0.0-7.0-0.48,pilota_data_1635123318042,,,7524,img/testing_events/Cb/Test_Cb_Event_17.jpg,c,,response,u,FALSE
+,,,,,image-keyboard-response,103,486393,0.0-7.0-0.49,pilota_data_1635123318042,,,4024,img/testing_events/Cb/Test_Cb_Event_15.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,104,492310,0.0-7.0-0.50,pilota_data_1635123318042,,,5915,img/testing_events/Ca/Test_Ca_Event_19.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,105,494482,0.0-7.0-0.51,pilota_data_1635123318042,,,2170,img/testing_events/Ab/Test_Ab_Event_22.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,106,506396,0.0-7.0-0.52,pilota_data_1635123318042,,,11911,img/testing_events/Cb/Test_Cb_Event_13.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,107,509330,0.0-7.0-0.53,pilota_data_1635123318042,,,2932,img/testing_events/Ba/Test_Ba_Event_16.jpg,c,,response,u,FALSE
+,,,,,image-keyboard-response,108,510648,0.0-7.0-0.54,pilota_data_1635123318042,,,1315,img/testing_events/Ab/Test_Ab_Event_24.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,109,523034,0.0-7.0-0.55,pilota_data_1635123318042,,,12384,img/testing_events/Ba/Test_Ba_Event_9.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,110,526915,0.0-7.0-0.56,pilota_data_1635123318042,,,3879,img/testing_events/Ac/Test_Ac_Event_18.jpg,n,,response,c,FALSE
+,,,,,image-keyboard-response,111,529907,0.0-7.0-0.57,pilota_data_1635123318042,,,2989,img/testing_events/Ac/Test_Ac_Event_2.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,112,537559,0.0-7.0-0.58,pilota_data_1635123318042,,,7650,img/testing_events/Ba/Test_Ba_Event_3.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,113,542789,0.0-7.0-0.59,pilota_data_1635123318042,,,5228,img/testing_events/Ba/Test_Ba_Event_20.jpg,e,,response,u,FALSE
+,,,,,image-keyboard-response,114,544892,0.0-7.0-0.60,pilota_data_1635123318042,,,2101,img/testing_events/Ab/Test_Ab_Event_12.jpg,e,,response,n,FALSE
+,,,,,image-keyboard-response,115,552239,0.0-7.0-0.61,pilota_data_1635123318042,,,7336,img/testing_events/Ac/Test_Ac_Event_9.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,116,554669,0.0-7.0-0.62,pilota_data_1635123318042,,,2425,img/testing_events/Ac/Test_Ac_Event_16.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,117,559226,0.0-7.0-0.63,pilota_data_1635123318042,,,4554,img/testing_events/Ac/Test_Ac_Event_3.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,118,562251,0.0-7.0-0.64,pilota_data_1635123318042,,,3024,img/testing_events/Ab/Test_Ab_Event_19.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,119,564591,0.0-7.0-0.65,pilota_data_1635123318042,,,2338,img/testing_events/Ac/Test_Ac_Event_12.jpg,u,,response,e,FALSE
+,,,,,image-keyboard-response,120,567077,0.0-7.0-0.66,pilota_data_1635123318042,,,2483,img/testing_events/Ba/Test_Ba_Event_11.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,121,571873,0.0-7.0-0.67,pilota_data_1635123318042,,,4794,img/testing_events/Bc/Test_Bc_Event_24.jpg,e,,response,c,FALSE
+,,,,,image-keyboard-response,122,575708,0.0-7.0-0.68,pilota_data_1635123318042,,,3833,img/testing_events/Ca/Test_Ca_Event_17.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,123,576981,0.0-7.0-0.69,pilota_data_1635123318042,,,1270,img/testing_events/Ac/Test_Ac_Event_24.jpg,c,,response,e,FALSE
+,,,,,image-keyboard-response,124,580128,0.0-7.0-0.70,pilota_data_1635123318042,,,3145,img/testing_events/Ba/Test_Ba_Event_19.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,125,586586,0.0-7.0-0.71,pilota_data_1635123318042,,,6455,img/testing_events/Bc/Test_Bc_Event_9.jpg,e,,response,n,FALSE
+,,,,,image-keyboard-response,126,590241,0.0-7.0-0.72,pilota_data_1635123318042,,,3654,img/testing_events/Ac/Test_Ac_Event_19.jpg,c,,response,n,FALSE
+,,,,,image-keyboard-response,127,597048,0.0-7.0-0.73,pilota_data_1635123318042,,,6804,img/testing_events/Bc/Test_Bc_Event_17.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,128,601176,0.0-7.0-0.74,pilota_data_1635123318042,,,4124,img/testing_events/Ac/Test_Ac_Event_1.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,129,603134,0.0-7.0-0.75,pilota_data_1635123318042,,,1956,img/testing_events/Ca/Test_Ca_Event_15.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,130,606185,0.0-7.0-0.76,pilota_data_1635123318042,,,3049,img/testing_events/Ab/Test_Ab_Event_7.jpg,u,,response,c,FALSE
+,,,,,image-keyboard-response,131,607669,0.0-7.0-0.77,pilota_data_1635123318042,,,1481,img/testing_events/Bc/Test_Bc_Event_4.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,132,609411,0.0-7.0-0.78,pilota_data_1635123318042,,,1740,img/testing_events/Ab/Test_Ab_Event_21.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,133,610941,0.0-7.0-0.79,pilota_data_1635123318042,,,1527,img/testing_events/Ba/Test_Ba_Event_17.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,134,614384,0.0-7.0-0.80,pilota_data_1635123318042,,,3441,img/testing_events/Ca/Test_Ca_Event_9.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,135,620674,0.0-7.0-0.81,pilota_data_1635123318042,,,6287,img/testing_events/Cb/Test_Cb_Event_8.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,136,622360,0.0-7.0-0.82,pilota_data_1635123318042,,,1684,img/testing_events/Ba/Test_Ba_Event_7.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,137,625590,0.0-7.0-0.83,pilota_data_1635123318042,,,3228,img/testing_events/Bc/Test_Bc_Event_13.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,138,627300,0.0-7.0-0.84,pilota_data_1635123318042,,,1708,img/testing_events/Cb/Test_Cb_Event_11.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,139,630405,0.0-7.0-0.85,pilota_data_1635123318042,,,3103,img/testing_events/Cb/Test_Cb_Event_20.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,140,635805,0.0-7.0-0.86,pilota_data_1635123318042,,,5398,img/testing_events/Bc/Test_Bc_Event_23.jpg,e,,response,u,FALSE
+,,,,,image-keyboard-response,141,638166,0.0-7.0-0.87,pilota_data_1635123318042,,,2359,img/testing_events/Ab/Test_Ab_Event_4.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,142,640934,0.0-7.0-0.88,pilota_data_1635123318042,,,2766,img/testing_events/Ca/Test_Ca_Event_2.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,143,644140,0.0-7.0-0.89,pilota_data_1635123318042,,,3204,img/testing_events/Ba/Test_Ba_Event_15.jpg,u,,response,e,FALSE
+,,,,,image-keyboard-response,144,649362,0.0-7.0-0.90,pilota_data_1635123318042,,,5219,img/testing_events/Ba/Test_Ba_Event_4.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,145,654490,0.0-7.0-0.91,pilota_data_1635123318042,,,5126,img/testing_events/Cb/Test_Cb_Event_16.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,146,656685,0.0-7.0-0.92,pilota_data_1635123318042,,,2192,img/testing_events/Ab/Test_Ab_Event_16.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,147,668115,0.0-7.0-0.93,pilota_data_1635123318042,,,11429,img/testing_events/Ac/Test_Ac_Event_20.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,148,671288,0.0-7.0-0.94,pilota_data_1635123318042,,,3170,img/testing_events/Ab/Test_Ab_Event_6.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,149,673683,0.0-7.0-0.95,pilota_data_1635123318042,,,2392,img/testing_events/Ba/Test_Ba_Event_2.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,150,676226,0.0-7.0-0.96,pilota_data_1635123318042,,,2542,img/testing_events/Ba/Test_Ba_Event_24.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,151,681504,0.0-7.0-0.97,pilota_data_1635123318042,,,5274,img/testing_events/Ab/Test_Ab_Event_14.jpg,c,,response,u,FALSE
+,,,,,image-keyboard-response,152,686530,0.0-7.0-0.98,pilota_data_1635123318042,,,5023,img/testing_events/Cb/Test_Cb_Event_3.jpg,c,,response,n,FALSE
+,,,,,image-keyboard-response,153,689073,0.0-7.0-0.99,pilota_data_1635123318042,,,2540,img/testing_events/Bc/Test_Bc_Event_7.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,154,694395,0.0-7.0-0.100,pilota_data_1635123318042,,,5320,img/testing_events/Bc/Test_Bc_Event_20.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,155,694409,0.0-7.0-0.101,pilota_data_1635123318042,,,3,img/testing_events/Ca/Test_Ca_Event_3.jpg,e,,response,c,FALSE
+,,,,,image-keyboard-response,156,698445,0.0-7.0-0.102,pilota_data_1635123318042,,,4035,img/testing_events/Bc/Test_Bc_Event_10.jpg,c,,response,e,FALSE
+,,,,,image-keyboard-response,157,699659,0.0-7.0-0.103,pilota_data_1635123318042,,,1211,img/testing_events/Cb/Test_Cb_Event_4.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,158,704340,0.0-7.0-0.104,pilota_data_1635123318042,,,4679,img/testing_events/Bc/Test_Bc_Event_19.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,159,709595,0.0-7.0-0.105,pilota_data_1635123318042,,,5252,img/testing_events/Ab/Test_Ab_Event_15.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,160,711517,0.0-7.0-0.106,pilota_data_1635123318042,,,1920,img/testing_events/Bc/Test_Bc_Event_16.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,161,719618,0.0-7.0-0.107,pilota_data_1635123318042,,,8098,img/testing_events/Bc/Test_Bc_Event_8.jpg,u,,response,c,FALSE
+,,,,,image-keyboard-response,162,723138,0.0-7.0-0.108,pilota_data_1635123318042,,,3517,img/testing_events/Bc/Test_Bc_Event_2.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,163,726536,0.0-7.0-0.109,pilota_data_1635123318042,,,3396,img/testing_events/Ab/Test_Ab_Event_20.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,164,729933,0.0-7.0-0.110,pilota_data_1635123318042,,,3394,img/testing_events/Bc/Test_Bc_Event_12.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,165,732128,0.0-7.0-0.111,pilota_data_1635123318042,,,2192,img/testing_events/Ca/Test_Ca_Event_11.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,166,736639,0.0-7.0-0.112,pilota_data_1635123318042,,,4509,img/testing_events/Ca/Test_Ca_Event_22.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,167,743761,0.0-7.0-0.113,pilota_data_1635123318042,,,7120,img/testing_events/Ba/Test_Ba_Event_18.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,168,745831,0.0-7.0-0.114,pilota_data_1635123318042,,,2059,img/testing_events/Ba/Test_Ba_Event_1.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,169,748732,0.0-7.0-0.115,pilota_data_1635123318042,,,2899,img/testing_events/Ab/Test_Ab_Event_3.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,170,751342,0.0-7.0-0.116,pilota_data_1635123318042,,,2607,img/testing_events/Ac/Test_Ac_Event_7.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,171,752816,0.0-7.0-0.117,pilota_data_1635123318042,,,1472,img/testing_events/Ac/Test_Ac_Event_11.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,172,755852,0.0-7.0-0.118,pilota_data_1635123318042,,,3033,img/testing_events/Ba/Test_Ba_Event_21.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,173,759306,0.0-7.0-0.119,pilota_data_1635123318042,,,3452,img/testing_events/Ac/Test_Ac_Event_10.jpg,n,,response,c,FALSE
+,,,,,image-keyboard-response,174,761299,0.0-7.0-0.120,pilota_data_1635123318042,,,1990,img/testing_events/Bc/Test_Bc_Event_3.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,175,765057,0.0-7.0-0.121,pilota_data_1635123318042,,,3756,img/testing_events/Ac/Test_Ac_Event_14.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,176,767610,0.0-7.0-0.122,pilota_data_1635123318042,,,2549,img/testing_events/Ba/Test_Ba_Event_13.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,177,770826,0.0-7.0-0.123,pilota_data_1635123318042,,,3213,img/testing_events/Bc/Test_Bc_Event_21.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,178,773314,0.0-7.0-0.124,pilota_data_1635123318042,,,2486,img/testing_events/Cb/Test_Cb_Event_1.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,179,784800,0.0-7.0-0.125,pilota_data_1635123318042,,,11483,img/testing_events/Bc/Test_Bc_Event_6.jpg,e,,response,e,TRUE
+,,,,,image-keyboard-response,180,785914,0.0-7.0-0.126,pilota_data_1635123318042,,,1112,img/testing_events/Cb/Test_Cb_Event_5.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,181,797266,0.0-7.0-0.127,pilota_data_1635123318042,,,11349,img/testing_events/Ac/Test_Ac_Event_17.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,182,801430,0.0-7.0-0.128,pilota_data_1635123318042,,,4162,img/testing_events/Ba/Test_Ba_Event_10.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,183,805748,0.0-7.0-0.129,pilota_data_1635123318042,,,4315,img/testing_events/Cb/Test_Cb_Event_9.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,184,812735,0.0-7.0-0.130,pilota_data_1635123318042,,,6985,img/testing_events/Ca/Test_Ca_Event_12.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,185,824559,0.0-7.0-0.131,pilota_data_1635123318042,,,11821,img/testing_events/Cb/Test_Cb_Event_24.jpg,u,,response,e,FALSE
+,,,,,image-keyboard-response,186,829812,0.0-7.0-0.132,pilota_data_1635123318042,,,5249,img/testing_events/Ab/Test_Ab_Event_8.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,187,835405,0.0-7.0-0.133,pilota_data_1635123318042,,,5591,img/testing_events/Ab/Test_Ab_Event_23.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,188,839531,0.0-7.0-0.134,pilota_data_1635123318042,,,4123,img/testing_events/Ba/Test_Ba_Event_23.jpg,c,,response,e,FALSE
+,,,,,image-keyboard-response,189,844267,0.0-7.0-0.135,pilota_data_1635123318042,,,4734,img/testing_events/Ca/Test_Ca_Event_24.jpg,c,,response,n,FALSE
+,,,,,image-keyboard-response,190,848138,0.0-7.0-0.136,pilota_data_1635123318042,,,3868,img/testing_events/Ac/Test_Ac_Event_15.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,191,850084,0.0-7.0-0.137,pilota_data_1635123318042,,,1935,img/testing_events/Ab/Test_Ab_Event_11.jpg,c,,response,c,TRUE
+,,,,,image-keyboard-response,192,852896,0.0-7.0-0.138,pilota_data_1635123318042,,,2809,img/testing_events/Ac/Test_Ac_Event_5.jpg,n,,response,u,FALSE
+,,,,,image-keyboard-response,193,857711,0.0-7.0-0.139,pilota_data_1635123318042,,,4813,img/testing_events/Bc/Test_Bc_Event_15.jpg,u,,response,u,TRUE
+,,,,,image-keyboard-response,194,861492,0.0-7.0-0.140,pilota_data_1635123318042,,,3778,img/testing_events/Cb/Test_Cb_Event_23.jpg,u,,response,n,FALSE
+,,,,,image-keyboard-response,195,863617,0.0-7.0-0.141,pilota_data_1635123318042,,,2123,img/testing_events/Ba/Test_Ba_Event_6.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,196,866790,0.0-7.0-0.142,pilota_data_1635123318042,,,3170,img/testing_events/Ca/Test_Ca_Event_8.jpg,n,,response,n,TRUE
+,,,,,image-keyboard-response,197,870895,0.0-7.0-0.143,pilota_data_1635123318042,,,4103,img/testing_events/Ab/Test_Ab_Event_1.jpg,e,,response,e,TRUE
+TRUE,,,,,fullscreen,198,870899,0.0-8.0,pilota_data_1635123318042,,,,,,,,,
+,,,,,survey-text,199,877810,0.0-9.0,pilota_data_1635123318042,,,6886,,"{""Q0"":""akhsdfjkah"",""Q1"":""askdfkajshdf"",""Q2"":""ashdfkjasdfjkhasdf""}",,,,

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Shawn T. Schwartz (stschwartz@stanford.edu)" />
 
-<meta name="date" content="2021-10-17" />
+<meta name="date" content="2021-10-24" />
 
 <title>Reproducibility Report for ‘Development of Holistic Episodic Recollection’ by Ngo et al. (2019, Psychological Science)</title>
 
@@ -271,7 +271,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Reproducibility Report for ‘Development of Holistic Episodic Recollection’ by Ngo et al. (2019, Psychological Science)</h1>
 <h4 class="author">Shawn T. Schwartz (<a href="mailto:stschwartz@stanford.edu" class="email">stschwartz@stanford.edu</a>)</h4>
-<h4 class="date">October 17, 2021</h4>
+<h4 class="date">October 24, 2021</h4>
 
 </div>
 
@@ -291,7 +291,7 @@ div.tocify {
 <h3>Links</h3>
 <p>Project repository (on Github): <a href="https://github.com/psych251/ngo2019" class="uri">https://github.com/psych251/ngo2019</a></p>
 <p>Original paper (as hosted in your repo): <a href="https://github.com/psych251/ngo2019/blob/main/original_paper/ngoetal2019.pdf" class="uri">https://github.com/psych251/ngo2019/blob/main/original_paper/ngoetal2019.pdf</a></p>
-<p>Experimental paradigm: working link coming soon once experiment is coded up… <a href="https://psych.shawntylerschwartz.com/ngo" class="uri">https://psych.shawntylerschwartz.com/ngo</a></p>
+<p>Experimental paradigm: <a href="https://psych.shawntylerschwartz.com/ngo" class="uri">https://psych.shawntylerschwartz.com/ngo</a></p>
 </div>
 <div id="power-analysis" class="section level3">
 <h3>Power Analysis</h3>
@@ -334,7 +334,7 @@ print_power_results(power_80_original)</code></pre>
 </div>
 <div id="planned-sample" class="section level3">
 <h3>Planned Sample</h3>
-<p>I will collect data from 8 participants and data collection will stop once complete data from all 8 participants has been collected from Prolific.</p>
+<p>Based on the power analyses for a large effect size (Cohen’s <em>d</em> = .80), I will collect data from 12 participants and data collection will stop once complete data from all 12 participants has been collected from Prolific. The experiment should take about 15-20 minutes to complete.</p>
 </div>
 <div id="materials" class="section level3">
 <h3>Materials</h3>
@@ -386,11 +386,231 @@ You can comment this section out prior to final report with data collection.
 <h2>Results</h2>
 <div id="data-preparation" class="section level3">
 <h3>Data preparation</h3>
-<!-- Data preparation following the analysis plan. -->
-<p>Coming soon once data are collected…</p>
+<pre class="r"><code>## Load Relevant Libraries and Functions
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
+## ✓ tibble  3.1.4     ✓ dplyr   1.0.7
+## ✓ tidyr   1.1.4     ✓ stringr 1.4.0
+## ✓ readr   2.0.2     ✓ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(report)
+
+## Import data
+### get all data files from directory
+data_files &lt;- list.files(file.path(&quot;data/pilot_a&quot;), pattern = &quot;*.csv&quot;, full.names = TRUE)
+data_files</code></pre>
+<pre><code>## [1] &quot;data/pilot_a/pilota_data_1635121752309.csv&quot;
+## [2] &quot;data/pilot_a/pilota_data_1635123318042.csv&quot;
+## [3] &quot;data/pilot_a/pilota_data_1635124155303.csv&quot;</code></pre>
+<pre class="r"><code>### read individual data files to list
+all_data &lt;- lapply(data_files, read.csv)
+
+### unpack list as singular tidy data frame
+all_data &lt;- all_data |&gt;
+  map_df(as_tibble)
+
+## Data exclusion / filtering
+### clean data into long format
+all_data_cleaned &lt;- all_data |&gt;
+  filter(!is.na(correct)) |&gt; # pull out unnecessary rows for analysis
+  separate(stimulus, into = c(&quot;root&quot;, &quot;trialtype&quot;, &quot;grouping&quot;), sep = &quot;/&quot;) |&gt; # pull out testing category
+  select(subject_id, study_id, session_id,
+         trial_index, time_elapsed, rt,
+         grouping, response, correct_response, correct) |&gt; # select relevant columns
+  mutate(accuracy = ifelse(correct == TRUE, 1, 0))</code></pre>
+<pre><code>## Warning: Expected 3 pieces. Additional pieces discarded in 432 rows [1, 2, 3, 4,
+## 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
+<pre class="r"><code>head(all_data_cleaned)</code></pre>
+<pre><code>## # A tibble: 6 × 11
+##   subject_id         study_id session_id trial_index time_elapsed rt    grouping
+##   &lt;chr&gt;              &lt;lgl&gt;    &lt;lgl&gt;            &lt;int&gt;        &lt;int&gt; &lt;chr&gt; &lt;chr&gt;   
+## 1 pilota_data_16351… NA       NA                  54       343378 8892  Ca      
+## 2 pilota_data_16351… NA       NA                  55       352670 9289  Ac      
+## 3 pilota_data_16351… NA       NA                  56       358172 5499  Ac      
+## 4 pilota_data_16351… NA       NA                  57       363346 5172  Cb      
+## 5 pilota_data_16351… NA       NA                  58       368555 5206  Bc      
+## 6 pilota_data_16351… NA       NA                  59       371243 2686  Ab      
+## # … with 4 more variables: response &lt;chr&gt;, correct_response &lt;chr&gt;,
+## #   correct &lt;lgl&gt;, accuracy &lt;dbl&gt;</code></pre>
+<pre class="r"><code>## Prepare data for analysis - create columns etc.
+### compute individual accuracy by grouping
+accuracy_summary &lt;- all_data_cleaned |&gt;
+  group_by(grouping) |&gt;
+  summarise(mean = mean(accuracy), sd = sd(accuracy), n = n(), sem = sd/sqrt(n))
+
+### compute overall accuracy
+overall_accuracy_summary &lt;- all_data_cleaned |&gt;
+  summarise(mean = mean(accuracy), sd = sd(accuracy), n = n(), sem = sd/sqrt(n))
+
+### compute Ab_Ac_Accuracy
+Ab_Ac_Accuracy &lt;- all_data_cleaned |&gt;
+  filter(grouping == &quot;Ab&quot; | grouping == &quot;Ac&quot;) |&gt;
+  group_by(subject_id) |&gt;
+  summarise(mean = mean(accuracy))
+
+### compute Ba_Bc_Accuracy
+Ba_Bc_Accuracy &lt;- all_data_cleaned |&gt;
+  filter(grouping == &quot;Ba&quot; | grouping == &quot;Bc&quot;) |&gt;
+  group_by(subject_id) |&gt;
+  summarise(mean = mean(accuracy))
+
+### compute Ca_Cb_Accuracy
+Ca_Cb_Accuracy &lt;- all_data_cleaned |&gt;
+  filter(grouping == &quot;Ca&quot; | grouping == &quot;Cb&quot;) |&gt;
+  group_by(subject_id) |&gt;
+  summarise(mean = mean(accuracy))
+
+### compute Ba_Ca_Accuracy
+Ba_Ca_Accuracy &lt;- all_data_cleaned |&gt;
+  filter(grouping == &quot;Ba&quot; | grouping == &quot;Ca&quot;) |&gt;
+  group_by(subject_id) |&gt;
+  summarise(mean = mean(accuracy))
+
+### compute Ac_Bc_Accuracy
+Ac_Bc_Accuracy &lt;- all_data_cleaned |&gt;
+  filter(grouping == &quot;Ac&quot; | grouping == &quot;Bc&quot;) |&gt;
+  group_by(subject_id) |&gt;
+  summarise(mean = mean(accuracy))
+
+### compute Ab_Cb_Accuracy
+Ab_Cb_Accuracy &lt;- all_data_cleaned |&gt;
+  filter(grouping == &quot;Ab&quot; | grouping == &quot;Cb&quot;) |&gt;
+  group_by(subject_id) |&gt;
+  summarise(mean = mean(accuracy))
+
+### compute 6 2x2 contingency tables for retrieval dependency key analysis
+
+#### define dependent model function
+compute_data_model &lt;- function(group_one, group_two, num_events = 24) {
+  
+  AB_one &lt;- all_data_cleaned |&gt;
+    filter(grouping == group_one &amp; accuracy == 1) |&gt;
+    group_by(subject_id) |&gt;
+    summarise(n = n(), proportion = n/num_events)
+  
+  AC_one &lt;- all_data_cleaned |&gt;
+    filter(grouping == group_two &amp; accuracy == 1) |&gt;
+    group_by(subject_id) |&gt;
+    summarise(n = n(), proportion = n/num_events)
+  
+  AB_zero &lt;- all_data_cleaned |&gt;
+    filter(grouping == group_one &amp; accuracy == 0) |&gt;
+    group_by(subject_id) |&gt;
+    summarise(n = n(), proportion = n/num_events)
+  
+  AC_zero &lt;- all_data_cleaned |&gt;
+    filter(grouping == group_two &amp; accuracy == 0) |&gt;
+    group_by(subject_id) |&gt;
+    summarise(n = n(), proportion = n/num_events)
+  
+  AB_AC_one &lt;- AB_one$proportion * AC_one$proportion
+  AB_zero_AC_zero &lt;- AB_zero$proportion * AC_zero$proportion
+  
+  return(AB_AC_one + AB_zero_AC_zero)
+
+}
+#### 1) compute Data_Ab_Ac
+Data_Ab_Ac &lt;- compute_data_model(&quot;Ab&quot;, &quot;Ac&quot;)</code></pre>
+<pre><code>## Warning in AB_zero$proportion * AC_zero$proportion: longer object length is not
+## a multiple of shorter object length</code></pre>
+<pre class="r"><code>#### 2) compute Data_Ba_Bc
+Data_Ba_Bc &lt;- compute_data_model(&quot;Ba&quot;, &quot;Bc&quot;)
+
+#### 3) compute Data_Ca_Cb
+Data_Ca_Cb &lt;- compute_data_model(&quot;Ca&quot;, &quot;Cb&quot;)
+
+#### 4) compute Data_Ba_Ca
+Data_Ba_Ca &lt;- compute_data_model(&quot;Ba&quot;, &quot;Ca&quot;)
+
+#### 5) compute Data_Ac_Bc
+Data_Ac_Bc &lt;- compute_data_model(&quot;Ac&quot;, &quot;Bc&quot;)</code></pre>
+<pre><code>## Warning in AB_zero$proportion * AC_zero$proportion: longer object length is not
+## a multiple of shorter object length</code></pre>
+<pre class="r"><code>#### 6) compute Data_Ab_Cb
+Data_Ab_Cb &lt;- compute_data_model(&quot;Ab&quot;, &quot;Cb&quot;)
+
+#### define independent model function
+compute_ind_model &lt;- function(group_one, group_two) {
+  P_AB &lt;- all_data_cleaned |&gt;
+    filter(grouping == group_one) |&gt;
+    group_by(subject_id) |&gt;
+    summarise(mean = mean(accuracy))
+
+  P_AC &lt;- all_data_cleaned |&gt;
+    filter(grouping == group_two) |&gt;
+    group_by(subject_id) |&gt;
+    summarise(mean = mean(accuracy))
+
+  cor_cor &lt;- P_AB$mean * P_AC$mean
+  incor_cor &lt;- P_AC$mean * (1 - P_AB$mean)
+  cor_incor &lt;- P_AB$mean * (1 - P_AC$mean)
+  incor_incor &lt;- (1 - P_AB$mean) * (1 - P_AC$mean)
+
+  return(cor_cor + incor_incor)
+}
+
+#### 1) compute Independent_Model_Ab_Ac
+Independent_Model_Ab_Ac &lt;- compute_ind_model(&quot;Ab&quot;, &quot;Ac&quot;)
+
+#### 2) compute Independent_Model_Ba_Bc
+Independent_Model_Ba_Bc &lt;- compute_ind_model(&quot;Ba&quot;, &quot;Bc&quot;)
+
+#### 3) compute Independent_Model_Ca_Cb
+Independent_Model_Ca_Cb &lt;- compute_ind_model(&quot;Ca&quot;, &quot;Cb&quot;)
+
+#### 4) compute Independent_Model_Ba_Ca
+Independent_Model_Ba_Ca &lt;- compute_ind_model(&quot;Ba&quot;, &quot;Ca&quot;)
+
+#### 5) compute Independent_Model_Ac_Bc
+Independent_Model_Ac_Bc &lt;- compute_ind_model(&quot;Ac&quot;, &quot;Bc&quot;)
+
+#### 6) compute Independent_Model_Ab_Cb
+Independent_Model_Ab_Cb &lt;- compute_ind_model(&quot;Ab&quot;, &quot;Cb&quot;)
+
+#### 1) compute Dependency_AbAc
+Dependency_AbAc &lt;- Data_Ab_Ac - Independent_Model_Ab_Ac
+
+#### 2) compute Dependency_BaBc
+Dependency_BaBc &lt;- Data_Ba_Bc - Independent_Model_Ba_Bc
+  
+#### 3) compute Dependency_CaCb
+Dependency_CaCb &lt;- Data_Ca_Cb - Independent_Model_Ca_Cb
+  
+#### 4) compute Dependency_BaCa
+Dependency_BaCa &lt;- Data_Ba_Ca - Independent_Model_Ba_Ca
+
+#### 5) compute Dependency_AcBc
+Dependency_AcBc &lt;- Data_Ac_Bc - Independent_Model_Ac_Bc
+  
+#### 6) compute Dependency_AbCb
+Dependency_AbCb &lt;- Data_Ab_Cb - Independent_Model_Ab_Cb
+
+### compute Collapsed_Data
+total_data_model &lt;- (Data_Ab_Ac + Data_Ba_Bc + Data_Ca_Cb + Data_Ba_Ca + Data_Ac_Bc + Data_Ab_Cb) / 6
+
+### compute Collapsed_Ind_Model
+total_ind_model &lt;- (Independent_Model_Ab_Ac + Independent_Model_Ba_Bc + Independent_Model_Ca_Cb + Independent_Model_Ba_Ca + Independent_Model_Ac_Bc + Independent_Model_Ab_Cb) / 6
+
+### compute Dependency
+Dependency &lt;- total_data_model - total_ind_model
+Dependency</code></pre>
+<pre><code>## [1]  0.02054398 -0.02083333  0.02633102</code></pre>
+<pre class="r"><code>Dependency_avg &lt;- mean(Dependency)
+Dependency_avg</code></pre>
+<pre><code>## [1] 0.008680556</code></pre>
 </div>
 <div id="confirmatory-analysis" class="section level3">
 <h3>Confirmatory analysis</h3>
+<pre class="r"><code>### testing key confirmatory analysis using pilot A (n = 3) data
+key_test &lt;- t.test(Dependency, alternative = &quot;greater&quot;, mu = 0)
+report(key_test)</code></pre>
+<pre><code>## &#39;interpret_d()&#39; is now deprecated. Please use &#39;interpret_cohens_d()&#39;.</code></pre>
+<pre><code>## Effect sizes were labelled following Cohen&#39;s (1988) recommendations.
+## 
+## The One Sample t-test testing the difference between Dependency (mean = 8.68e-03) and mu = 0 suggests that the effect is positive, statistically not significant, and small (difference = 8.68e-03, 95% CI [-0.03, Inf], t(2) = 0.58, p = 0.309; Cohen&#39;s d = 0.34, 95% CI [-0.84, Inf])</code></pre>
 <div id="overall-accuracy" class="section level4">
 <h4>Overall accuracy</h4>
 <p>‘Overall accuracy was defined as the proportion of target selection across 144 test trials.’ <span class="citation">(<a href="#ref-ngo2019development" role="doc-biblioref">Ngo et al., 2019</a>)</span>. Overall accuracy was at .XX (<em>SD</em> = .XX, 95% confidence interval (CI) = [X.XX, X.XX]).</p>
@@ -497,7 +717,7 @@ $(document).ready(function ()  {
 
     // establish options
     var options = {
-      selectors: "h1,h2,h3",
+      selectors: "h1,h2,h3,h4",
       theme: "bootstrap3",
       context: '.toc-content',
       hashGenerator: function (text) {

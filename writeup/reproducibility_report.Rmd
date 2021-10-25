@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
     toc: yes
-    toc_depth: 3
+    toc_depth: 4
     toc_float:
       collapsed: false
 bibliography: references.bib
@@ -31,7 +31,7 @@ Project repository (on Github): https://github.com/psych251/ngo2019
 
 Original paper (as hosted in your repo): https://github.com/psych251/ngo2019/blob/main/original_paper/ngoetal2019.pdf
 
-Experimental paradigm: working link coming soon once experiment is coded up... https://psych.shawntylerschwartz.com/ngo
+Experimental paradigm: https://psych.shawntylerschwartz.com/ngo
 
 ### Power Analysis
 
@@ -70,7 +70,7 @@ print_power_results(power_95_large)
 
 ### Planned Sample
 
-I will collect data from 8 participants and data collection will stop once complete data from all 8 participants has been collected from Prolific.
+Based on the power analyses for a large effect size (Cohen's *d* = .80), I will collect data from 12 participants and data collection will stop once complete data from all 12 participants has been collected from Prolific. The experiment should take about 15-20 minutes to complete.
 
 ### Materials
 
@@ -132,22 +132,207 @@ You can comment this section out prior to final report with data collection.
 
 ### Data preparation
 
-<!-- Data preparation following the analysis plan. -->
-Coming soon once data are collected...
-	
-```{r include=F}
-###Data Preparation
+```{r}
+## Load Relevant Libraries and Functions
+library(tidyverse)
+library(report)
 
-####Load Relevant Libraries and Functions
+## Import data
+### get all data files from directory
+data_files <- list.files(file.path("data/pilot_a"), pattern = "*.csv", full.names = TRUE)
+data_files
 
-####Import data
+### read individual data files to list
+all_data <- lapply(data_files, read.csv)
 
-####Data exclusion / filtering
+### unpack list as singular tidy data frame
+all_data <- all_data |>
+  map_df(as_tibble)
 
-####Prepare data for analysis - create columns etc.
+## Data exclusion / filtering
+### clean data into long format
+all_data_cleaned <- all_data |>
+  filter(!is.na(correct)) |> # pull out unnecessary rows for analysis
+  separate(stimulus, into = c("root", "trialtype", "grouping"), sep = "/") |> # pull out testing category
+  select(subject_id, study_id, session_id,
+         trial_index, time_elapsed, rt,
+         grouping, response, correct_response, correct) |> # select relevant columns
+  mutate(accuracy = ifelse(correct == TRUE, 1, 0))
+
+head(all_data_cleaned)
+
+## Prepare data for analysis - create columns etc.
+### compute individual accuracy by grouping
+accuracy_summary <- all_data_cleaned |>
+  group_by(grouping) |>
+  summarise(mean = mean(accuracy), sd = sd(accuracy), n = n(), sem = sd/sqrt(n))
+
+### compute overall accuracy
+overall_accuracy_summary <- all_data_cleaned |>
+  summarise(mean = mean(accuracy), sd = sd(accuracy), n = n(), sem = sd/sqrt(n))
+
+### compute Ab_Ac_Accuracy
+Ab_Ac_Accuracy <- all_data_cleaned |>
+  filter(grouping == "Ab" | grouping == "Ac") |>
+  group_by(subject_id) |>
+  summarise(mean = mean(accuracy))
+
+### compute Ba_Bc_Accuracy
+Ba_Bc_Accuracy <- all_data_cleaned |>
+  filter(grouping == "Ba" | grouping == "Bc") |>
+  group_by(subject_id) |>
+  summarise(mean = mean(accuracy))
+
+### compute Ca_Cb_Accuracy
+Ca_Cb_Accuracy <- all_data_cleaned |>
+  filter(grouping == "Ca" | grouping == "Cb") |>
+  group_by(subject_id) |>
+  summarise(mean = mean(accuracy))
+
+### compute Ba_Ca_Accuracy
+Ba_Ca_Accuracy <- all_data_cleaned |>
+  filter(grouping == "Ba" | grouping == "Ca") |>
+  group_by(subject_id) |>
+  summarise(mean = mean(accuracy))
+
+### compute Ac_Bc_Accuracy
+Ac_Bc_Accuracy <- all_data_cleaned |>
+  filter(grouping == "Ac" | grouping == "Bc") |>
+  group_by(subject_id) |>
+  summarise(mean = mean(accuracy))
+
+### compute Ab_Cb_Accuracy
+Ab_Cb_Accuracy <- all_data_cleaned |>
+  filter(grouping == "Ab" | grouping == "Cb") |>
+  group_by(subject_id) |>
+  summarise(mean = mean(accuracy))
+
+### compute 6 2x2 contingency tables for retrieval dependency key analysis
+
+#### define dependent model function
+compute_data_model <- function(group_one, group_two, num_events = 24) {
+  
+  AB_one <- all_data_cleaned |>
+    filter(grouping == group_one & accuracy == 1) |>
+    group_by(subject_id) |>
+    summarise(n = n(), proportion = n/num_events)
+  
+  AC_one <- all_data_cleaned |>
+    filter(grouping == group_two & accuracy == 1) |>
+    group_by(subject_id) |>
+    summarise(n = n(), proportion = n/num_events)
+  
+  AB_zero <- all_data_cleaned |>
+    filter(grouping == group_one & accuracy == 0) |>
+    group_by(subject_id) |>
+    summarise(n = n(), proportion = n/num_events)
+  
+  AC_zero <- all_data_cleaned |>
+    filter(grouping == group_two & accuracy == 0) |>
+    group_by(subject_id) |>
+    summarise(n = n(), proportion = n/num_events)
+  
+  AB_AC_one <- AB_one$proportion * AC_one$proportion
+  AB_zero_AC_zero <- AB_zero$proportion * AC_zero$proportion
+  
+  return(AB_AC_one + AB_zero_AC_zero)
+
+}
+#### 1) compute Data_Ab_Ac
+Data_Ab_Ac <- compute_data_model("Ab", "Ac")
+
+#### 2) compute Data_Ba_Bc
+Data_Ba_Bc <- compute_data_model("Ba", "Bc")
+
+#### 3) compute Data_Ca_Cb
+Data_Ca_Cb <- compute_data_model("Ca", "Cb")
+
+#### 4) compute Data_Ba_Ca
+Data_Ba_Ca <- compute_data_model("Ba", "Ca")
+
+#### 5) compute Data_Ac_Bc
+Data_Ac_Bc <- compute_data_model("Ac", "Bc")
+
+#### 6) compute Data_Ab_Cb
+Data_Ab_Cb <- compute_data_model("Ab", "Cb")
+
+#### define independent model function
+compute_ind_model <- function(group_one, group_two) {
+  P_AB <- all_data_cleaned |>
+    filter(grouping == group_one) |>
+    group_by(subject_id) |>
+    summarise(mean = mean(accuracy))
+
+  P_AC <- all_data_cleaned |>
+    filter(grouping == group_two) |>
+    group_by(subject_id) |>
+    summarise(mean = mean(accuracy))
+
+  cor_cor <- P_AB$mean * P_AC$mean
+  incor_cor <- P_AC$mean * (1 - P_AB$mean)
+  cor_incor <- P_AB$mean * (1 - P_AC$mean)
+  incor_incor <- (1 - P_AB$mean) * (1 - P_AC$mean)
+
+  return(cor_cor + incor_incor)
+}
+
+#### 1) compute Independent_Model_Ab_Ac
+Independent_Model_Ab_Ac <- compute_ind_model("Ab", "Ac")
+
+#### 2) compute Independent_Model_Ba_Bc
+Independent_Model_Ba_Bc <- compute_ind_model("Ba", "Bc")
+
+#### 3) compute Independent_Model_Ca_Cb
+Independent_Model_Ca_Cb <- compute_ind_model("Ca", "Cb")
+
+#### 4) compute Independent_Model_Ba_Ca
+Independent_Model_Ba_Ca <- compute_ind_model("Ba", "Ca")
+
+#### 5) compute Independent_Model_Ac_Bc
+Independent_Model_Ac_Bc <- compute_ind_model("Ac", "Bc")
+
+#### 6) compute Independent_Model_Ab_Cb
+Independent_Model_Ab_Cb <- compute_ind_model("Ab", "Cb")
+
+#### 1) compute Dependency_AbAc
+Dependency_AbAc <- Data_Ab_Ac - Independent_Model_Ab_Ac
+
+#### 2) compute Dependency_BaBc
+Dependency_BaBc <- Data_Ba_Bc - Independent_Model_Ba_Bc
+  
+#### 3) compute Dependency_CaCb
+Dependency_CaCb <- Data_Ca_Cb - Independent_Model_Ca_Cb
+  
+#### 4) compute Dependency_BaCa
+Dependency_BaCa <- Data_Ba_Ca - Independent_Model_Ba_Ca
+
+#### 5) compute Dependency_AcBc
+Dependency_AcBc <- Data_Ac_Bc - Independent_Model_Ac_Bc
+  
+#### 6) compute Dependency_AbCb
+Dependency_AbCb <- Data_Ab_Cb - Independent_Model_Ab_Cb
+
+### compute Collapsed_Data
+total_data_model <- (Data_Ab_Ac + Data_Ba_Bc + Data_Ca_Cb + Data_Ba_Ca + Data_Ac_Bc + Data_Ab_Cb) / 6
+
+### compute Collapsed_Ind_Model
+total_ind_model <- (Independent_Model_Ab_Ac + Independent_Model_Ba_Bc + Independent_Model_Ca_Cb + Independent_Model_Ba_Ca + Independent_Model_Ac_Bc + Independent_Model_Ab_Cb) / 6
+
+### compute Dependency
+Dependency <- total_data_model - total_ind_model
+Dependency
+
+Dependency_avg <- mean(Dependency)
+Dependency_avg
 ```
 
 ### Confirmatory analysis
+```{r}
+### testing key confirmatory analysis using pilot A (n = 3) data
+key_test <- t.test(Dependency, alternative = "greater", mu = 0)
+report(key_test)
+```
+
 
 #### Overall accuracy
 'Overall accuracy was defined as the proportion of target selection across 144 test trials.' [@ngo2019development]. Overall accuracy was at .XX (*SD* = .XX, 95% confidence interval (CI) = [X.XX, X.XX]).
