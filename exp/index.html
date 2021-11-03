@@ -305,12 +305,32 @@
     };
     timeline.push(enter_fullscreen);
 
+    // add landing page
+    var landing_page = {
+        type: jsPsychInstructions,
+        show_clickable_nav: true,
+        pages: [
+            "By answering the following questions, you are participating in a \
+            study being performed by cognitive scientists in the Stanford \
+            Department of Psychology. If you have questions about this \
+            research, please contact us at <a href=\"mailto:stanfordpsych251@gmail.com\"> \
+            stanfordpsych251@gmail.com</a>. You must be at least 18 years \
+            old to participate. Your participation in this research is \
+            voluntary. You may decline to answer any or all of the \
+            following questions. You may decline further participation, \
+            at any time, without adverse consequences. Your anonymity is \
+            assured; the researchers who have requested your participation \
+            will not receive any personal information about you."
+        ]
+    };
+    timeline.push(landing_page);
+
     // add welcome message
     var welcome = {
         type: jsPsychHtmlKeyboardResponse,
         choices: 'b',
         post_trial_gap: 1000,
-        stimulus: 'Welcome to the experiment. <br /><br />For this study, <strong>please use</strong> a laptop or desktop computer (not a mobile phone or tablet). Also, please use either <u>Chrome or Firefox</u>. <br /><br />Once you begin, <strong>DO NOT</strong> refresh the browser, as the experiment will reset and you will lose your progress. <br /><br />Press the <strong class="upperline">B</strong> key on your keyboard to begin.'
+        stimulus: 'Welcome to the experiment. <br /><br />This experiment will take about 20 minutes. Please complete all in one sitting. <br /><br />For this study, <strong>please use</strong> a laptop or desktop computer (not a mobile phone or tablet). Also, please use either <u>Chrome or Firefox</u>. <br /><br />Once you begin, <strong>DO NOT</strong> refresh the browser, as the experiment will reset and you will lose your progress. <br /><br />Press the <strong class="upperline">B</strong> key on your keyboard to begin.'
     };
     timeline.push(welcome);
 
