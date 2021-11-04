@@ -429,7 +429,10 @@
     var testing_procedure = {
         timeline: [test],
         timeline_variables: retrieval_stim_dict,
-        randomize_order: true
+        randomize_order: true,
+        data: {
+            retrieval_group: jsPsych.timelineVariable('retrieval_group')
+        }
     };
     timeline.push(testing_procedure);
 
