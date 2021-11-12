@@ -332,22 +332,6 @@
     };
     timeline.push(welcome);
 
-    // demographics survey
-    var demographics_survey = {
-        type: jsPsychSurveyHtmlForm,
-        preamble: '<h2 style="text-align: left; color: #069;">Basic Information</h2>',
-        html: '<section class="dem-sec radioButtons"><h3 class="dem">Gender</h3><label><input name="Gender" type="radio" value="Male" required/>Male</label><label><input name="Gender" type="radio" value="Female" required/>Female</label><label><input name="Gender" type="radio" value="Other" required/>Other</label><label><input name="Gender" type="radio" value="PreferNotToAnswer" required/>Prefer Not To Answer</label></section>'+
-                '<section class="dem-sec"><label><h3 class="dem">Age</h3><input name="Age" class="wide collectorInput" type="text" pattern="[0-9][0-9]" value="" autocomplete="off" required/></label></section>'+
-                '<section class="dem-sec radioButtons"><h3 class="dem">Are you color blind?</h3><label><input name="ColorBlind" type="radio" value="Yes" required/>Yes</label><label><input name="ColorBlind" type="radio" value="No" required/>No</label></section>'+
-                '<section class="dem-sec"><label><h3 class="dem">Education</h3><select name="Education" class="wide collectorInput" required><option value="" default selected>Select Level</option><option>Some High School</option><option>High School Graduate</option><option>Some College, no degree</option><option>Associates degree</option><option>Bachelors degree</option><option>Graduate degree (Masters, Doctorate, etc.)</option></select></label></section>'+
-                '<section class="dem-sec"><label><h3 class="dem">What is your estimated household annual income?</h3><select name="Income" class="wide collectorInput" required><option value="" default selected>Select Level</option><option>$0-$24,999</option><option>$25,000-$49,999</option><option>$50,000-$74,999</option><option>$75,000-$99,999</option><option>$100,000-$124,999</option><option>$125,000-$149,999</option><option>$150,000+</option></select></label></section>'+
-                '<section class="dem-sec"><label><h3 class="dem">Race</h3><select name="Race" required class="wide collectorInput"><option value="" default selected>Select one</option><option>American Indian/Alaskan Native</option><option>Asian/Pacific Islander</option><option>Black</option><option>White</option><option>Other/unknown</option></select></label></section>'+
-                '<section class="dem-sec radioButtons"><h3 class="dem">Do you speak english fluently?</h3><label><input name="Fluent" type="radio" value="Yes" required/>Yes</label><label><input name="Fluent" type="radio" value="No" required/>No</label></section>'+
-                '<section class="dem-sec"><h3 class="dem">At what age did you start learning English?</h3><input name="AgeEnglish" type="text" value="" autocomplete="off" class="wide collectorInput"/><div class="small shim">If English is your first language please enter 0.</div></section>'+
-                '<section class="dem-sec"><label><h3 class="dem">What is your country of residence?</h3><input name="Country" type="text" value="" autocomplete="off" class="wide collectorInput"/></label></section>'
-    };
-    timeline.push(demographics_survey);
-
     // encoding instructions
     var encoding_instructions = {
         type: jsPsychInstructions,
@@ -451,6 +435,22 @@
         ]
     };
     timeline.push(post_exp_survey);
+
+    // demographics survey
+    var demographics_survey = {
+        type: jsPsychSurveyHtmlForm,
+        preamble: '<h2 style="text-align: left; color: #069;">Basic Information</h2>',
+        html: '<section class="dem-sec radioButtons"><h3 class="dem">Gender</h3><label><input name="Gender" type="radio" value="Male" required/>Male</label><label><input name="Gender" type="radio" value="Female" required/>Female</label><label><input name="Gender" type="radio" value="Other" required/>Other</label><label><input name="Gender" type="radio" value="PreferNotToAnswer" required/>Prefer Not To Answer</label></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">Age</h3><input name="Age" class="wide collectorInput" type="text" pattern="[0-9][0-9]" value="" autocomplete="off" required/></label></section>'+
+                '<section class="dem-sec radioButtons"><h3 class="dem">Are you color blind?</h3><label><input name="ColorBlind" type="radio" value="Yes" required/>Yes</label><label><input name="ColorBlind" type="radio" value="No" required/>No</label></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">Education</h3><select name="Education" class="wide collectorInput" required><option value="" default selected>Select Level</option><option>Some High School</option><option>High School Graduate</option><option>Some College, no degree</option><option>Associates degree</option><option>Bachelors degree</option><option>Graduate degree (Masters, Doctorate, etc.)</option></select></label></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">What is your estimated household annual income?</h3><select name="Income" class="wide collectorInput" required><option value="" default selected>Select Level</option><option>$0-$24,999</option><option>$25,000-$49,999</option><option>$50,000-$74,999</option><option>$75,000-$99,999</option><option>$100,000-$124,999</option><option>$125,000-$149,999</option><option>$150,000+</option></select></label></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">Race</h3><select name="Race" required class="wide collectorInput"><option value="" default selected>Select one</option><option>American Indian/Alaskan Native</option><option>Asian/Pacific Islander</option><option>Black</option><option>White</option><option>Other/unknown</option></select></label></section>'+
+                '<section class="dem-sec radioButtons"><h3 class="dem">Do you speak english fluently?</h3><label><input name="Fluent" type="radio" value="Yes" required/>Yes</label><label><input name="Fluent" type="radio" value="No" required/>No</label></section>'+
+                '<section class="dem-sec"><h3 class="dem">At what age did you start learning English?</h3><input name="AgeEnglish" type="text" value="" autocomplete="off" class="wide collectorInput"/><div class="small shim">If English is your first language please enter 0.</div></section>'+
+                '<section class="dem-sec"><label><h3 class="dem">What is your country of residence?</h3><input name="Country" type="text" value="" autocomplete="off" class="wide collectorInput"/></label></section>'
+    };
+    timeline.push(demographics_survey);
 
     // execute experiment
     jsPsych.run(timeline);
