@@ -122,8 +122,8 @@
     var encoding_stim_arr = [];
     var encoding_stim_dict = [];
     for(var i = 1; i <= num_events; i++) {
-    encoding_stim_arr.push("img/encoding_events/Event_" + i + ".jpg");
-    encoding_stim_dict.push({stimulus: "img/encoding_events/Event_" + i + ".jpg"})
+        encoding_stim_arr.push("img/encoding_events/Event_" + i + ".jpg");
+        encoding_stim_dict.push({stimulus: "img/encoding_events/Event_" + i + ".jpg"})
     }
 
     if(VERBOSE) console.log(encoding_stim_dict);
@@ -156,18 +156,18 @@
     var retrieval_groups_subset_one = ['Ab', 'Ca'];
     for(var i = 0; i < retrieval_groups_subset_one.length; i++) {
         for(var j = 1; j <= num_events; j++) {
-        if(afc_assignment_counter > 4) {
-            afc_assignment_counter = 1;
-        }
-        if(afc_assignment_counter % 4 != 0) {
-            afc_assignment_counter = afc_assignment_counter;
-        }
-        retrieval_stim_dict.push({
-            stimulus: "img/testing_events/" + retrieval_groups_subset_one[i] + "/Test_" + retrieval_groups_subset_one[i] +  "_Event_" + j + ".jpg", 
-            retrieval_group: retrieval_groups_subset_one[i],
-            correct_response: AFC_CHOICES[afc_assignment_counter-1]
-        });
-        afc_assignment_counter += 1;
+            if(afc_assignment_counter > 4) {
+                afc_assignment_counter = 1;
+            }
+            if(afc_assignment_counter % 4 != 0) {
+                afc_assignment_counter = afc_assignment_counter;
+            }
+            retrieval_stim_dict.push({
+                stimulus: "img/testing_events/" + retrieval_groups_subset_one[i] + "/Test_" + retrieval_groups_subset_one[i] +  "_Event_" + j + ".jpg", 
+                retrieval_group: retrieval_groups_subset_one[i],
+                correct_response: AFC_CHOICES[afc_assignment_counter-1]
+            });
+            afc_assignment_counter += 1;
         }
     }
 
@@ -176,18 +176,18 @@
     afc_assignment_counter = 3;
     for(var i = 0; i < retrieval_groups_subset_two.length; i++) {
         for(var j = 1; j <= num_events; j++) {
-        if(afc_assignment_counter > 4) {
-            afc_assignment_counter = 1;
-        }
-        if(afc_assignment_counter % 4 != 0) {
-            afc_assignment_counter = afc_assignment_counter;
-        }
-        retrieval_stim_dict.push({
-            stimulus: "img/testing_events/" + retrieval_groups_subset_two[i] + "/Test_" + retrieval_groups_subset_two[i] +  "_Event_" + j + ".jpg", 
-            retrieval_group: retrieval_groups_subset_two[i],
-            correct_response: AFC_CHOICES[afc_assignment_counter-1]
-        });
-        afc_assignment_counter += 1;
+            if(afc_assignment_counter > 4) {
+                afc_assignment_counter = 1;
+            }
+            if(afc_assignment_counter % 4 != 0) {
+                afc_assignment_counter = afc_assignment_counter;
+            }
+            retrieval_stim_dict.push({
+                stimulus: "img/testing_events/" + retrieval_groups_subset_two[i] + "/Test_" + retrieval_groups_subset_two[i] +  "_Event_" + j + ".jpg", 
+                retrieval_group: retrieval_groups_subset_two[i],
+                correct_response: AFC_CHOICES[afc_assignment_counter-1]
+            });
+            afc_assignment_counter += 1;
         }
     }
 
@@ -196,18 +196,18 @@
     afc_assignment_counter = 4;
     for(var i = 0; i < retrieval_groups_subset_three.length; i++) {
         for(var j = 1; j <= num_events; j++) {
-        if(afc_assignment_counter > 4) {
-            afc_assignment_counter = 1;
-        }
-        if(afc_assignment_counter % 4 != 0) {
-            afc_assignment_counter = afc_assignment_counter;
-        }
-        retrieval_stim_dict.push({
-            stimulus: "img/testing_events/" + retrieval_groups_subset_three[i] + "/Test_" + retrieval_groups_subset_three[i] +  "_Event_" + j + ".jpg", 
-            retrieval_group: retrieval_groups_subset_three[i],
-            correct_response: AFC_CHOICES[afc_assignment_counter-1]
-        });
-        afc_assignment_counter += 1;
+            if(afc_assignment_counter > 4) {
+                afc_assignment_counter = 1;
+            }
+            if(afc_assignment_counter % 4 != 0) {
+                afc_assignment_counter = afc_assignment_counter;
+            }
+            retrieval_stim_dict.push({
+                stimulus: "img/testing_events/" + retrieval_groups_subset_three[i] + "/Test_" + retrieval_groups_subset_three[i] +  "_Event_" + j + ".jpg", 
+                retrieval_group: retrieval_groups_subset_three[i],
+                correct_response: AFC_CHOICES[afc_assignment_counter-1]
+            });
+            afc_assignment_counter += 1;
         }
     }
 
@@ -216,18 +216,18 @@
     afc_assignment_counter = 2;
     for(var i = 0; i < retrieval_groups_subset_four.length; i++) {
         for(var j = 1; j <= num_events; j++) {
-        if(afc_assignment_counter > 4) {
-            afc_assignment_counter = 1;
-        }
-        if(afc_assignment_counter % 4 != 0) {
-            afc_assignment_counter = afc_assignment_counter;
-        }
-        retrieval_stim_dict.push({
-            stimulus: "img/testing_events/" + retrieval_groups_subset_four[i] + "/Test_" + retrieval_groups_subset_four[i] +  "_Event_" + j + ".jpg", 
-            retrieval_group: retrieval_groups_subset_four[i],
-            correct_response: AFC_CHOICES[afc_assignment_counter-1]
-        });
-        afc_assignment_counter += 1;
+            if(afc_assignment_counter > 4) {
+                afc_assignment_counter = 1;
+            }
+            if(afc_assignment_counter % 4 != 0) {
+                afc_assignment_counter = afc_assignment_counter;
+            }
+            retrieval_stim_dict.push({
+                stimulus: "img/testing_events/" + retrieval_groups_subset_four[i] + "/Test_" + retrieval_groups_subset_four[i] +  "_Event_" + j + ".jpg", 
+                retrieval_group: retrieval_groups_subset_four[i],
+                correct_response: AFC_CHOICES[afc_assignment_counter-1]
+            });
+            afc_assignment_counter += 1;
         }
     }
 
@@ -244,8 +244,6 @@
     // initialize jsPsych
     var jsPsych = initJsPsych({
         on_finish: function() {
-            // jsPsych.data.displayData();
-
             // get current time
             var timestamp = Date.now();
 
