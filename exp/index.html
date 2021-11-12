@@ -416,14 +416,6 @@
     };
     timeline.push(testing_procedure);
 
-    // exit full screen mode
-    var exit_fullscreen = {
-        type: jsPsychFullscreen,
-        fullscreen_mode: false,
-        delay_after: 0
-    };
-    timeline.push(exit_fullscreen);
-
     // post experiment survey
     var post_exp_survey = {
         type: jsPsychSurveyText,
@@ -451,6 +443,14 @@
                 '<section class="dem-sec"><label><h3 class="dem">What is your country of residence?</h3><input name="Country" type="text" value="" autocomplete="off" class="wide collectorInput"/></label></section>'
     };
     timeline.push(demographics_survey);
+
+    // exit full screen mode
+    var exit_fullscreen = {
+        type: jsPsychFullscreen,
+        fullscreen_mode: false,
+        delay_after: 0
+    };
+    timeline.push(exit_fullscreen);
 
     // execute experiment
     jsPsych.run(timeline);
