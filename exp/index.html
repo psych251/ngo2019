@@ -364,7 +364,9 @@
     var encoding_procedure = {
         timeline: [fixation, encoding],
         timeline_variables: encoding_stim_dict,
-        randomize_order: true
+        randomize_order: true,
+        stimulus_width: 1050,
+        maintain_aspect_ratio: true
     };
     timeline.push(encoding_procedure);
 
@@ -405,6 +407,8 @@
         timeline: [test],
         timeline_variables: retrieval_stim_dict,
         randomize_order: true,
+        stimulus_width: 1050,
+        maintain_aspect_ratio: true,
         data: {
             retrieval_group: jsPsych.timelineVariable('retrieval_group')
         }
