@@ -228,6 +228,31 @@
 
     if(VERBOSE) console.log(retrieval_stim_dict);
 
+    // extract retrieval group blocks from dict for consective randomized block design
+    var retrieval_stim_Ab_dict = [];
+    var retrieval_stim_Ac_dict = [];
+    var retrieval_stim_Ba_dict = [];
+    var retrieval_stim_Bc_dict = [];
+    var retrieval_stim_Ca_dict = [];
+    var retrieval_stim_Cb_dict = [];
+
+    for(var key in retrieval_stim_dict) {
+        if(retrieval_stim_dict[key].retrieval_group == "Ab")
+            retrieval_stim_Ab_dict.push(retrieval_stim_dict[key]);
+        else if(retrieval_stim_dict[key].retrieval_group == "Ac")
+            retrieval_stim_Ac_dict.push(retrieval_stim_dict[key]);
+        else if(retrieval_stim_dict[key].retrieval_group == "Ba")
+            retrieval_stim_Ba_dict.push(retrieval_stim_dict[key]);
+        else if(retrieval_stim_dict[key].retrieval_group == "Bc")
+            retrieval_stim_Bc_dict.push(retrieval_stim_dict[key]);
+        else if(retrieval_stim_dict[key].retrieval_group == "Ca")
+            retrieval_stim_Ca_dict.push(retrieval_stim_dict[key]);
+        else if(retrieval_stim_dict[key].retrieval_group == "Cb")
+            retrieval_stim_Cb_dict.push(retrieval_stim_dict[key]);
+        else
+            console.log("Error in parsing retrieval stim categories...");
+    }
+
     // server connection to save data
     function saveData(filename, filedata) {
         var xhr = new XMLHttpRequest();
