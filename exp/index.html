@@ -426,11 +426,11 @@
             data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
         }
     };
-    
-    // define test procedure
-    var testing_procedure = {
+
+    // define testing procedure: Ab
+    var testing_procedure_Ab = {
         timeline: [test],
-        timeline_variables: retrieval_stim_dict,
+        timeline_variables: retrieval_stim_Ab_dict,
         randomize_order: true,
         stimulus_width: 1050,
         maintain_aspect_ratio: true,
@@ -438,7 +438,73 @@
             retrieval_group: jsPsych.timelineVariable('retrieval_group')
         }
     };
-    timeline.push(testing_procedure);
+
+    // define testing procedure: Ac
+    var testing_procedure_Ac = {
+        timeline: [test],
+        timeline_variables: retrieval_stim_Ac_dict,
+        randomize_order: true,
+        stimulus_width: 1050,
+        maintain_aspect_ratio: true,
+        data: {
+            retrieval_group: jsPsych.timelineVariable('retrieval_group')
+        }
+    };
+
+    // define testing procedure: Ba
+    var testing_procedure_Ba = {
+        timeline: [test],
+        timeline_variables: retrieval_stim_Ba_dict,
+        randomize_order: true,
+        stimulus_width: 1050,
+        maintain_aspect_ratio: true,
+        data: {
+            retrieval_group: jsPsych.timelineVariable('retrieval_group')
+        }
+    };
+
+    // define testing procedure: Bc
+    var testing_procedure_Bc = {
+        timeline: [test],
+        timeline_variables: retrieval_stim_Bc_dict,
+        randomize_order: true,
+        stimulus_width: 1050,
+        maintain_aspect_ratio: true,
+        data: {
+            retrieval_group: jsPsych.timelineVariable('retrieval_group')
+        }
+    };
+
+    // define testing procedure: Ca
+    var testing_procedure_Ca = {
+        timeline: [test],
+        timeline_variables: retrieval_stim_Ca_dict,
+        randomize_order: true,
+        stimulus_width: 1050,
+        maintain_aspect_ratio: true,
+        data: {
+            retrieval_group: jsPsych.timelineVariable('retrieval_group')
+        }
+    };
+
+    // define testing procedure: Cb
+    var testing_procedure_Cb = {
+        timeline: [test],
+        timeline_variables: retrieval_stim_Cb_dict,
+        randomize_order: true,
+        stimulus_width: 1050,
+        maintain_aspect_ratio: true,
+        data: {
+            retrieval_group: jsPsych.timelineVariable('retrieval_group')
+        }
+    };
+
+    // randomize testing procedure block orders
+    var all_testing_blocks = [testing_procedure_Ab, testing_procedure_Ac, testing_procedure_Ba, testing_procedure_Bc, testing_procedure_Ca, testing_procedure_Cb];
+    var all_blocks_procedure = {
+        timeline: jsPsych.randomization.shuffle(all_testing_blocks)
+    };
+    timeline.push(all_blocks_procedure);
 
     // post experiment survey
     var post_exp_survey = {
