@@ -164,45 +164,59 @@ head(all_data_cleaned)
 ## Prepare data for analysis - create columns etc.
 ### compute individual accuracy by grouping
 accuracy_summary <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
   group_by(retrieval_group) |>
+  summarise(mean = mean(accuracy), sd = sd(accuracy), n = n(), sem = sd/sqrt(n))
+
+### compute accuracy by participant
+accuracy_summary_part <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
+  group_by(subject_id) |>
   summarise(mean = mean(accuracy), sd = sd(accuracy), n = n(), sem = sd/sqrt(n))
 
 ### compute overall accuracy
 overall_accuracy_summary <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
   summarise(mean = mean(accuracy), sd = sd(accuracy), n = n(), sem = sd/sqrt(n))
 
 ### compute Ab_Ac_Accuracy
 Ab_Ac_Accuracy <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
   filter(retrieval_group == "Ab" | retrieval_group == "Ac") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ba_Bc_Accuracy
 Ba_Bc_Accuracy <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
   filter(retrieval_group == "Ba" | retrieval_group == "Bc") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ca_Cb_Accuracy
 Ca_Cb_Accuracy <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
   filter(retrieval_group == "Ca" | retrieval_group == "Cb") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ba_Ca_Accuracy
 Ba_Ca_Accuracy <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
   filter(retrieval_group == "Ba" | retrieval_group == "Ca") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ac_Bc_Accuracy
 Ac_Bc_Accuracy <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
   filter(retrieval_group == "Ac" | retrieval_group == "Bc") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ab_Cb_Accuracy
 Ab_Cb_Accuracy <- all_data_cleaned |>
+  filter(task == "response") |> # only use retrieval data
   filter(retrieval_group == "Ab" | retrieval_group == "Cb") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
@@ -211,22 +225,35 @@ Ab_Cb_Accuracy <- all_data_cleaned |>
 
 #### define dependent model function
 compute_data_model <- function(group_one, group_two, num_events = 24) {
-  
   test_set <- all_data_cleaned |>
     filter(task == "response") |> # only use retrieval data
-    select(id, retrieval_group, accuracy) |> # select only the necessary columns
+    select(subject_id, id, retrieval_group, accuracy) |> # select only the necessary columns
     filter(retrieval_group == group_one | retrieval_group == group_two) |> # filter out relevant groups from function params
-    pivot_wider(id_cols = id, names_from = retrieval_group, values_from = accuracy) |> # make long data frame wide for data dependent calculations
+    pivot_wider(id_cols = c(subject_id, id), names_from = retrieval_group, values_from = accuracy) |> # make long data frame wide for data dependent calculations
     rowwise() |>
     mutate(sum = sum(eval(parse(text = group_one)) + eval(parse(text = group_two)))) # get sums to compute all_correct and all_incorrect proportion of contingency table
   
-  # get proportion of all correct
-  prop_all_correct <- sum(test_set$sum == 2) / num_events
+  # get unique participants
+  ps <- unique(all_data_cleaned$subject_id)
+  data_models <- rep(NA, length(ps))
   
-  # get proportion of all incorrect
-  prop_all_incorrect <- sum(test_set$sum == 0) / num_events
+  for(ii in 1:length(ps)) {
+    # get data for just the one participant in the loop
+    data_subset <- test_set |>
+      filter(subject_id == ps[ii])
+    
+    # get proportion of all correct
+    prop_all_correct <- sum(data_subset$sum == 2) / num_events
+    
+    # get proportion of all incorrect
+    prop_all_incorrect <- sum(data_subset$sum == 0) / num_events
+    
+    # compute data model and store per participant
+    data_model_calc <- prop_all_correct + prop_all_incorrect
+    data_models[ii] <- data_model_calc 
+  }
   
-  return(prop_all_correct + prop_all_incorrect)
+  return(data_models)
 }
 
 #### 1) compute Data_Ab_Ac
