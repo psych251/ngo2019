@@ -153,10 +153,9 @@ all_data <- all_data |>
 ### clean data into long format
 all_data_cleaned <- all_data |>
   filter(!is.na(correct)) |> # pull out unnecessary rows for analysis
-  select(subject_id, study_id, session_id,
-         trial_index, time_elapsed, rt, stimulus, task,
+  select(subject_id, trial_index, time_elapsed, rt, stimulus, task,
          retrieval_group, response, correct_response, correct) |> # select relevant columns
-  mutate(accuracy = ifelse(correct == "true", 1, 0)) |>
+  mutate(accuracy = ifelse(correct == "TRUE", 1, 0)) |>
   separate(stimulus, c(NA, NA, NA, NA, "id"), sep = "_", remove = FALSE) # get each retrieval image id independent of the cue grouping
 
 head(all_data_cleaned)
