@@ -1,5 +1,5 @@
 ---
-title: "Reproducibility Report for 'Development of Holistic Episodic Recollection' by Ngo et al. (2019, Psychological Science)"
+title: "Replication Report for 'Development of Holistic Episodic Recollection' by Ngo et al. (2019, Psychological Science)"
 author: "Shawn T. Schwartz (stschwartz@stanford.edu)"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
