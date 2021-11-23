@@ -139,7 +139,7 @@ library(report)
 
 ## Import data
 ### get all data files from directory
-data_files <- list.files(file.path("data/pilot_a"), pattern = "*.csv", full.names = TRUE)
+data_files <- list.files(file.path("data/pilot_b"), pattern = "*.csv", full.names = TRUE)
 data_files
 
 ### read individual data files to list
@@ -153,18 +153,18 @@ all_data <- all_data |>
 ### clean data into long format
 all_data_cleaned <- all_data |>
   filter(!is.na(correct)) |> # pull out unnecessary rows for analysis
-  separate(stimulus, into = c("root", "trialtype", "grouping"), sep = "/") |> # pull out testing category
   select(subject_id, study_id, session_id,
-         trial_index, time_elapsed, rt,
-         grouping, response, correct_response, correct) |> # select relevant columns
-  mutate(accuracy = ifelse(correct == TRUE, 1, 0))
+         trial_index, time_elapsed, rt, stimulus, task,
+         retrieval_group, response, correct_response, correct) |> # select relevant columns
+  mutate(accuracy = ifelse(correct == "true", 1, 0)) |>
+  separate(stimulus, c(NA, NA, NA, NA, "id"), sep = "_", remove = FALSE) # get each retrieval image id independent of the cue grouping
 
 head(all_data_cleaned)
 
 ## Prepare data for analysis - create columns etc.
 ### compute individual accuracy by grouping
 accuracy_summary <- all_data_cleaned |>
-  group_by(grouping) |>
+  group_by(retrieval_group) |>
   summarise(mean = mean(accuracy), sd = sd(accuracy), n = n(), sem = sd/sqrt(n))
 
 ### compute overall accuracy
@@ -173,37 +173,37 @@ overall_accuracy_summary <- all_data_cleaned |>
 
 ### compute Ab_Ac_Accuracy
 Ab_Ac_Accuracy <- all_data_cleaned |>
-  filter(grouping == "Ab" | grouping == "Ac") |>
+  filter(retrieval_group == "Ab" | retrieval_group == "Ac") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ba_Bc_Accuracy
 Ba_Bc_Accuracy <- all_data_cleaned |>
-  filter(grouping == "Ba" | grouping == "Bc") |>
+  filter(retrieval_group == "Ba" | retrieval_group == "Bc") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ca_Cb_Accuracy
 Ca_Cb_Accuracy <- all_data_cleaned |>
-  filter(grouping == "Ca" | grouping == "Cb") |>
+  filter(retrieval_group == "Ca" | retrieval_group == "Cb") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ba_Ca_Accuracy
 Ba_Ca_Accuracy <- all_data_cleaned |>
-  filter(grouping == "Ba" | grouping == "Ca") |>
+  filter(retrieval_group == "Ba" | retrieval_group == "Ca") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ac_Bc_Accuracy
 Ac_Bc_Accuracy <- all_data_cleaned |>
-  filter(grouping == "Ac" | grouping == "Bc") |>
+  filter(retrieval_group == "Ac" | retrieval_group == "Bc") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
 ### compute Ab_Cb_Accuracy
 Ab_Cb_Accuracy <- all_data_cleaned |>
-  filter(grouping == "Ab" | grouping == "Cb") |>
+  filter(retrieval_group == "Ab" | retrieval_group == "Cb") |>
   group_by(subject_id) |>
   summarise(mean = mean(accuracy))
 
@@ -212,32 +212,23 @@ Ab_Cb_Accuracy <- all_data_cleaned |>
 #### define dependent model function
 compute_data_model <- function(group_one, group_two, num_events = 24) {
   
-  AB_one <- all_data_cleaned |>
-    filter(grouping == group_one & accuracy == 1) |>
-    group_by(subject_id) |>
-    summarise(n = n(), proportion = n/num_events)
+  test_set <- all_data_cleaned |>
+    filter(task == "response") |> # only use retrieval data
+    select(id, retrieval_group, accuracy) |> # select only the necessary columns
+    filter(retrieval_group == group_one | retrieval_group == group_two) |> # filter out relevant groups from function params
+    pivot_wider(id_cols = id, names_from = retrieval_group, values_from = accuracy) |> # make long data frame wide for data dependent calculations
+    rowwise() |>
+    mutate(sum = sum(eval(parse(text = group_one)) + eval(parse(text = group_two)))) # get sums to compute all_correct and all_incorrect proportion of contingency table
   
-  AC_one <- all_data_cleaned |>
-    filter(grouping == group_two & accuracy == 1) |>
-    group_by(subject_id) |>
-    summarise(n = n(), proportion = n/num_events)
+  # get proportion of all correct
+  prop_all_correct <- sum(test_set$sum == 2) / num_events
   
-  AB_zero <- all_data_cleaned |>
-    filter(grouping == group_one & accuracy == 0) |>
-    group_by(subject_id) |>
-    summarise(n = n(), proportion = n/num_events)
+  # get proportion of all incorrect
+  prop_all_incorrect <- sum(test_set$sum == 0) / num_events
   
-  AC_zero <- all_data_cleaned |>
-    filter(grouping == group_two & accuracy == 0) |>
-    group_by(subject_id) |>
-    summarise(n = n(), proportion = n/num_events)
-  
-  AB_AC_one <- AB_one$proportion * AC_one$proportion
-  AB_zero_AC_zero <- AB_zero$proportion * AC_zero$proportion
-  
-  return(AB_AC_one + AB_zero_AC_zero)
-
+  return(prop_all_correct + prop_all_incorrect)
 }
+
 #### 1) compute Data_Ab_Ac
 Data_Ab_Ac <- compute_data_model("Ab", "Ac")
 
@@ -259,12 +250,12 @@ Data_Ab_Cb <- compute_data_model("Ab", "Cb")
 #### define independent model function
 compute_ind_model <- function(group_one, group_two) {
   P_AB <- all_data_cleaned |>
-    filter(grouping == group_one) |>
+    filter(retrieval_group == group_one) |>
     group_by(subject_id) |>
     summarise(mean = mean(accuracy))
 
   P_AC <- all_data_cleaned |>
-    filter(grouping == group_two) |>
+    filter(retrieval_group == group_two) |>
     group_by(subject_id) |>
     summarise(mean = mean(accuracy))
 
