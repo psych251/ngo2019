@@ -341,6 +341,52 @@ Dependency
 
 Dependency_avg <- mean(Dependency)
 Dependency_avg
+
+## construct complete data frame with all relevant stats summarized for each participant
+summary_data <- data.frame(subject_id = accuracy_summary_part$subject_id,
+                           Accuracy_mean = accuracy_summary_part$mean,
+                           Accuracy_sd = accuracy_summary_part$sd,
+                           Accuracy_sem = accuracy_summary_part$sem,
+                           Accuracy_n = accuracy_summary_part$n,
+                           Accuracy_AbAc = Ab_Ac_Accuracy$mean,
+                           Accuracy_BaBc = Ba_Bc_Accuracy$mean,
+                           Accuracy_CaCb = Ca_Cb_Accuracy$mean,
+                           Accuracy_BaCa = Ba_Ca_Accuracy$mean,
+                           Accuracy_AcBc = Ac_Bc_Accuracy$mean,
+                           Accuracy_AbCb = Ab_Cb_Accuracy$mean,
+                           Data_AbAc = Data_Ab_Ac,
+                           Data_BaBc = Data_Ba_Bc,
+                           Data_CaCb = Data_Ca_Cb,
+                           Data_BaCa = Data_Ba_Ca,
+                           Data_AcBc = Data_Ac_Bc,
+                           Data_AbCb = Data_Ab_Cb,
+                           Independent_AbAc = Independent_Model_Ab_Ac,
+                           Independent_BaBc = Independent_Model_Ba_Bc,
+                           Independent_CaCb = Independent_Model_Ca_Cb,
+                           Independent_BaCa = Independent_Model_Ba_Ca,
+                           Independent_AcBc = Independent_Model_Ac_Bc,
+                           Independent_AbCb = Independent_Model_Ab_Cb,
+                           Dependency_AbAc = Dependency_AbAc,
+                           Dependency_BaBc = Dependency_BaBc,
+                           Dependency_CaCb = Dependency_CaCb,
+                           Dependency_BaCa = Dependency_BaCa,
+                           Dependency_AcBc = Dependency_AcBc,
+                           Dependency_AbCb = Dependency_AbCb,
+                           Data_model_overall = total_data_model,
+                           Independent_model_overall = total_ind_model,
+                           Dependency_overall = Dependency)
+
+DT::datatable(summary_data)
+
+## count number of participants to exclude for having overall task accuracy == 100%
+perfect_acc_exclusions_idx <- which(summary_data$Accuracy_mean == 1)
+if(length(perfect_acc_exclusions_idx) > 0) {
+  summary_data_w_exclusions <- summary_data[perfect_acc_exclusions_idx,]
+} else {
+  print("No exclusions based on accuracy made!")
+}
+num_acc_exclusions <- length(perfect_acc_exclusions_idx)
+num_acc_exclusions
 ```
 
 ### Confirmatory analysis
