@@ -27,11 +27,13 @@ knitr::include_graphics("figures/example_stim.png")
 
 ### Links
 
-Project repository (on Github): https://github.com/psych251/ngo2019
+Project repository: https://github.com/psych251/ngo2019
 
-Original paper (as hosted in your repo): https://github.com/psych251/ngo2019/blob/main/original_paper/ngoetal2019.pdf
+Original paper: https://github.com/psych251/ngo2019/blob/main/original_paper/ngoetal2019.pdf
 
 Experimental paradigm: https://psych.shawntylerschwartz.com/ngo
+
+Preregistration: https://osf.io/t3rpq
 
 ### Power Analysis
 
@@ -98,9 +100,11 @@ knitr::include_graphics("figures/materials.jpeg")
 
 ### Analysis Plan
 
+#### Exclusion Criteria
 Participants will be excluded if they perform at ceiling on the memory task (i.e., with 100% accuracy).
 
-The key analyses of interest will be first testing for *retrieval dependency* via a one-sample *t*-test to determine whether retrieval dependency (observed data – an independent model) exceeds zero. This analysis mimics the key analysis of the original study [@ngo2019development], described below by a direct quote from the original authors: 
+#### Key Analysis
+The key analysis of interest will be first testing for *retrieval dependency* via a one-sample *t*-test to determine whether retrieval dependency (observed data – an independent model) exceeds zero. This analysis mimics the key analysis of the original study [@ngo2019development], described below by a direct quote from the original authors: 
 
 'The retrieval dependency between retrieval successes for different associations within the same event was computed using the same methods as in previous studies [@bisby2018negative; @horner2015evidence; @horner2013associative; @horner2014pattern]. Six 2 × 2 contingency tables for the data and the predicted independent model were computed for each participant on the basis of their retrieval accuracy for each pairwise association in order to assess dependency between retrieving two elements when cued by the remaining common element within an event (ABAC; i.e., cue with A and retrieve B, and cue with A and retrieve C), and the dependency between retrieving a common item when cued by the other two elements within an event (BACA; i.e., cue with B and retrieve A, and cue with C and retrieve A). Each 2 × 2 contingency table for the data for every participant shows the proportion of events that fall within the four categories: Both AB and AC are correct or incorrect, AB is correct and AC is incorrect, and AC is correct and AB is incorrect. To examine retrieval dependency, we computed the proportion of joint retrieval for the data, defined as the proportion of events in which both associations were either correctly or incorrectly retrieved (Cells 1,1 and 2,2 of each contingency table; see Fig. [3]b). We then averaged this measure across six contingencies tables (three tables for the ABAC analysis for each element type and three tables for the BACA analysis for each element type) for each participant.'
 
@@ -110,12 +114,13 @@ The key analyses of interest will be first testing for *retrieval dependency* vi
 knitr::include_graphics("figures/contingency.jpeg")
 ```
 
-Additionally, similar to the original study, I will also check for sex differences on overall retrieval accuracy. In addition to the analyses reported in the original study, I will use a linear modeling approach to investigate whether there appears to be any age effects for retrieval accuracy and retrieval dependency. In addition to the typical frequentist statistics, Bayes factors will be reported for each analysis described above.
+#### Gender Differences and Age Effects
+Additionally, similar to the original study, I will also check for gender differences on overall retrieval accuracy. In addition to the analyses reported in the original study, I will use a linear modeling approach to investigate whether there appears to be any age effects for retrieval accuracy and retrieval dependency. In addition to the typical frequentist statistics, Bayes factors will be reported for each analysis described above.
 
 ```{r}
 ## Load Relevant Libraries and Functions
 library(tidyverse)
-library(report)
+library(BayesFactor)
 
 ## Import data
 ### get all data files from directory
@@ -132,7 +137,7 @@ all_data <- all_data |>
 
 ### Differences from Original Study
 
-The key differences between the original study and this formally preregistered replication are that only younger adults will be tested (not children), and a much smaller sample size of younger adults (not specifically undergraduate students; *n* = 12) will be used (compared to the original *n* = 31 undergraduate students; 18 female, *M* = 20.65 years, *SD* = 3.23, range 18-31). The population in which participants will be sampled from here is [Prolific.co](https://prolific.co), and participants will be paid $3.34 for their participation. This deviates from the original study, which sampled from the undergraduate student population at Temple University, where students participated for partial course credit. In both the original student and my replication, participants will have normal or corrected-to-normal vision. Additionally, I am imposing the prescreening requirements such that the current country of residence is the United States, the minimum age for participation is 18 and the maximum age is 30 years (inclusive), and that participants' first language is English. I am also specifically targeting a 50/50 even-split between male- and female-identifying participants via Prolific's participant recruiting feature. Furthermore, I will not be having the younger adult participants complete a verbal intelligence task after the primary memory task like was done in the original study. Thus, in this replication, younger adult participants will only be completing the encoding and retrieval portion of the memory task reported on in the original published paper. I do not anticipate these differences to make a difference on the expected results given the large effect size (Cohen's *d* = 1.32) reported in the original article [@ngo2019development].
+The key differences between the original study and this formally preregistered replication are that only younger adults will be tested (not children), and a much smaller sample size of younger adults (not specifically undergraduate students; *n* = 12) will be used (compared to the original *n* = 31 undergraduate students; 18 female, *M* = 20.65 years, *SD* = 3.23, range 18-31). The population in which participants will be sampled from here is [Prolific.co](https://prolific.co), and participants will be paid $3.34 for their participation. This deviates from the original study, which sampled from the undergraduate student population at Temple University, where students participated for partial course credit. In both the original study and my replication, participants will have normal or corrected-to-normal vision. Additionally, I am imposing the prescreening requirements such that the current country of residence is the United States, the minimum age for participation is 18 and the maximum age is 30 years (inclusive), and that participants' first language is English. I am also specifically targeting a 50/50 even-split between male- and female-identifying participants via Prolific's participant recruiting feature. Furthermore, I will not be having the younger adult participants complete a verbal intelligence task after the primary memory task like was done in the original study. Thus, in this replication, younger adult participants will only be completing the encoding and retrieval portion of the memory task reported on in the original published paper. I do not anticipate these variations to make a difference on the expected results given the large effect size (Cohen's *d* = 1.32) reported in the original article [@ngo2019development].
 
 ### Methods Addendum (Post-Data Collection)
 
@@ -147,7 +152,7 @@ json_text <- paste0('[', json_text, ']')
 
 ### unpack json as data frame
 demographics_trials <- jsonlite::fromJSON(json_text) |>
-  as.tibble() |>
+  as_tibble() |>
   mutate(subject_id = rownames(demographics_trials), .before = "Gender")
 
 ### get participant demographic stats
@@ -162,10 +167,10 @@ table(demographics_trials$Gender)
 ```
 
 #### Actual Sample
-The demographic composition of the participants I recruited online varied slightly from those in the original study, *n* = 12, *M* = `r mean_age` years, *SD* = `r round(sd_age, 2)`, range: `r min_age`-`r max_age`; `r table(demographics_trials$Gender)[1]` females, `r table(demographics_trials$Gender)[2]` males, and `r table(demographics_trials$Gender)[3]` individual who preferred not to answer (compared to the original *n* = 31 undergraduate students; 18 female, *M* = 20.65 years, *SD* = 3.23, range 18-31; @ngo2019development). Participants recruited via [Prolific.co](https://prolific.co) for this replication attempt were recruited with the following prescreening criteria:normal or corrected-to-normal vision, currently reside in the United States, English as the first language, ages 18-30 (inclusive), did not participate in Pilot A or B. I used the sex-matching feature on [Prolific.co](https://prolific.co) to aim for an equal distribution of sex within the recruited online sample. Furthermore, no participants in this replication reported colorblindness, and no participants were excluded for having 100% accuracy on the 4-alternative-forced-choice cued recognition test.
+The demographic composition of the participants I recruited online varied slightly from those in the original study, *n* = 12, *M* = `r mean_age` years, *SD* = `r round(sd_age, 2)`, range: `r min_age`-`r max_age`; `r table(demographics_trials$Gender)[1]` females, `r table(demographics_trials$Gender)[2]` males, and `r table(demographics_trials$Gender)[3]` individual who preferred not to answer (compared to the original *n* = 31 undergraduate students; 18 female, *M* = 20.65 years, *SD* = 3.23, range 18-31; @ngo2019development). Participants recruited via [Prolific.co](https://prolific.co) for this replication attempt were recruited with the following prescreening criteria: normal or corrected-to-normal vision, currently reside in the United States, English as the first language, ages 18-30 (inclusive), and did not participate in Pilots A or B. I used the sex-matching feature on [Prolific.co](https://prolific.co) to aim for an equal distribution of gender within the recruited online sample. Furthermore, no participants in this replication reported colorblindness, and no participants were excluded for having 100% accuracy on the 4-alternative-forced-choice cued recognition test.
 
 #### Differences from Pre-Data Collection Methods Plan
-The only difference that was not originally planned was the addition of the descriptive statistics and a plot for the proportion of joint retrieval for the data and independent models. This has been added below and the plot is included with the `Retrieval Dependency` and `Overall Accuracy` boxplots below.
+The first difference that was not originally planned was the addition of the descriptive statistics and a plot for the proportion of joint retrieval for the data and independent models. This has been added below and the data are included with the `Retrieval Dependency` and `Overall Accuracy` boxplots below. Secondly, I have added an exploratory analysis to examine potential gender differences for retrieval dependency.
 
 
 ## Results
@@ -415,12 +420,18 @@ num_acc_exclusions
 
 ### Confirmatory Analysis
 ```{r}
-### testing key confirmatory analysis using pilot A (n = 3) data
+### testing key confirmatory analysis
 key_test <- t.test(Dependency, alternative = "greater", mu = 0)
+key_test
+
+### get bayes factor for key confirmatory analysis t-test
+key_test_bf <- ttestBF(Dependency, mu = 0, nullInterval = c(0, Inf))
+key_test_bf
+1/key_test_bf ## BF in support of the null
 ```
 
 #### Retrieval Dependency
-I conducted a one-sample *t*-test to determine whether dependency (data – independent model) exceeded zero for young adults, which indicated that there was no significant difference for retrieval dependency scores greater than the test value of zero, *t*(`r key_test$parameter`) = `r round(key_test$statistic, 2)`, *p* = `r round(key_test$p.value, 3)`, Cohen's *d* = `r round(effectsize::cohens_d(key_test)$Cohens_d, 2)`, 95% confidence interval (CI) = [`r round(effectsize::cohens_d(key_test)$CI_low, 2)`, `r as.character(effectsize::cohens_d(key_test)$CI_high)`], *M* = `r round(mean(summary_data$Dependency_overall), 2)`, *SD* = `r round(sd(summary_data$Dependency_overall), 2)`, *SEM* = `r round((sd(summary_data$Dependency_overall) / sqrt(12)), 2)` 95% CI = [`r round(mean(summary_data$Dependency_overall) - qnorm(0.975)*sd(summary_data$Dependency_overall)/sqrt(12), 2)`, `r round(mean(summary_data$Dependency_overall) + qnorm(0.975)*sd(summary_data$Dependency_overall)/sqrt(12), 2)`]. Original data from [@ngo2019development]: *M* = .07, *SD* = .05, *SEM* = .01, 95% CI = [.05, .08].
+I conducted a one-sample *t*-test to determine whether dependency (data – independent model) exceeded zero for young adults, which indicated that there was no significant difference for retrieval dependency scores greater than the test value of zero, *t*(`r key_test$parameter`) = `r round(key_test$statistic, 2)`, *p* = `r round(key_test$p.value, 3)`, Cohen's *d* = `r round(effectsize::cohens_d(key_test)$Cohens_d, 2)`, 95% confidence interval (CI) = [`r round(effectsize::cohens_d(key_test)$CI_low, 2)`, `r as.character(effectsize::cohens_d(key_test)$CI_high)`], $BF_{01}$ = 2.25, *M* = `r round(mean(summary_data$Dependency_overall), 2)`, *SD* = `r round(sd(summary_data$Dependency_overall), 2)`, *SEM* = `r round((sd(summary_data$Dependency_overall) / sqrt(12)), 2)`, 95% CI = [`r round(mean(summary_data$Dependency_overall) - qnorm(0.975)*sd(summary_data$Dependency_overall)/sqrt(12), 2)`, `r round(mean(summary_data$Dependency_overall) + qnorm(0.975)*sd(summary_data$Dependency_overall)/sqrt(12), 2)`] (see Figure 6c). Original data from [@ngo2019development]: *M* = .07, *SD* = .05, *SEM* = .01, 95% CI = [.05, .08].
 
 
 #### Overall Accuracy
@@ -434,17 +445,17 @@ lower_ci <- acc_mean - error
 upper_ci <- acc_mean + error
 ```
 
-'Overall accuracy was defined as the proportion of target selection across 144 test trials.' [@ngo2019development]. Overall accuracy was at `r round(acc_mean, 2)` (*SD* = `r round(acc_sd, 2)`, *SEM* = `r round(acc_sd / sqrt(12), 2)`, 95% CI = [`r round(lower_ci, 2)`, `r round(upper_ci, 2)`]). Original data from [@ngo2019development]: *M* = .72, *SD* = .19, *SEM* = .03, 95% CI = [.05, .08].
+'Overall accuracy was defined as the proportion of target selection across 144 test trials.' [@ngo2019development]. Figure 6a shows the overall accuracy, which was at `r round(acc_mean, 2)` (*SD* = `r round(acc_sd, 2)`, *SEM* = `r round(acc_sd / sqrt(12), 2)`, 95% CI = [`r round(lower_ci, 2)`, `r round(upper_ci, 2)`]). Original data from [@ngo2019development]: *M* = .72, *SD* = .19, *SEM* = .03, 95% CI = [.05, .08].
 
 
 #### Proportion of Joint Retrieval
-The proportion of joint retrieval for the data was at `r round(mean(summary_data$Data_model_overall), 2)` (*SD* = `r round(sd(summary_data$Data_model_overall), 2)`, *SEM* = `r round((sd(summary_data$Data_model_overall) / sqrt(12)), 2)`, 95% CI = [`r round(mean(summary_data$Data_model_overall) - qnorm(0.975)*sd(summary_data$Data_model_overall)/sqrt(12), 2)`, `r round(mean(summary_data$Data_model_overall) + qnorm(0.975)*sd(summary_data$Data_model_overall)/sqrt(12), 2)`]). Original data from [@ngo2019development] for the retrieval data: *M* = .72, *SD* = .13, *SEM* = .02, 95% CI = [.67, .76]. 
+Figure 6b shows the proportion of joint retrieval for the data, which was at `r round(mean(summary_data$Data_model_overall), 2)` (*SD* = `r round(sd(summary_data$Data_model_overall), 2)`, *SEM* = `r round((sd(summary_data$Data_model_overall) / sqrt(12)), 2)`, 95% CI = [`r round(mean(summary_data$Data_model_overall) - qnorm(0.975)*sd(summary_data$Data_model_overall)/sqrt(12), 2)`, `r round(mean(summary_data$Data_model_overall) + qnorm(0.975)*sd(summary_data$Data_model_overall)/sqrt(12), 2)`]). Original data from [@ngo2019development] for the retrieval data: *M* = .72, *SD* = .13, *SEM* = .02, 95% CI = [.67, .76]. 
 
-The proportion of joint retrieval for the independent model was at `r round(mean(summary_data$Independent_model_overall), 2)` (*SD* = `r round(sd(summary_data$Independent_model_overall), 2)`, *SEM* = `r round((sd(summary_data$Independent_model_overall) / sqrt(12)), 2)`, 95% CI = [`r round(mean(summary_data$Independent_model_overall) - qnorm(0.975)*sd(summary_data$Independent_model_overall)/sqrt(12), 2)`, `r round(mean(summary_data$Independent_model_overall) + qnorm(0.975)*sd(summary_data$Independent_model_overall)/sqrt(12), 2)`]). Original data from [@ngo2019development] for independent model: *M* = .65, *SD* = .14, *SEM* = .02, 95% CI = [.60, .70].
+Figure 6b shows the proportion of joint retrieval for the independent model, which was at `r round(mean(summary_data$Independent_model_overall), 2)` (*SD* = `r round(sd(summary_data$Independent_model_overall), 2)`, *SEM* = `r round((sd(summary_data$Independent_model_overall) / sqrt(12)), 2)`, 95% CI = [`r round(mean(summary_data$Independent_model_overall) - qnorm(0.975)*sd(summary_data$Independent_model_overall)/sqrt(12), 2)`, `r round(mean(summary_data$Independent_model_overall) + qnorm(0.975)*sd(summary_data$Independent_model_overall)/sqrt(12), 2)`]). Original data from [@ngo2019development] for independent model: *M* = .65, *SD* = .14, *SEM* = .02, 95% CI = [.60, .70].
 
 
 #### Original vs. Replication Attempt
-```{r data-original, fig.margin=TRUE, fig.cap='Fig. 5a: Original key data figures from Ngo et al. (2019). The current replication attempt was only interested in the young adult population (i.e., the elements of the figures highlighted by red bounding boxes).', echo=FALSE}
+```{r data-original, fig.margin=TRUE, fig.cap='Fig. 5: Original key data figures from Ngo et al. (2019). The current replication attempt was only interested in the young adult population (i.e., the elements of the figures highlighted by red bounding boxes).', echo=FALSE}
 knitr::include_graphics("figures/original_data.png")
 ```
 
@@ -452,9 +463,9 @@ knitr::include_graphics("figures/original_data.png")
 ### Overall Accuracy
 #### make plot
 acc_plot <- ggplot(summary_data, aes(x = "", y = Accuracy_mean)) +
-  geom_boxplot(width = 0.15, fill = "#4f50a2", outlier.shape = NA) +
-  geom_jitter(width = 0, col = "#363986", alpha = .7, shape = 21, size = 1, stroke = 1) +
-  xlab("Young Adults") +
+  geom_boxplot(width = 0.15, fill = "#ad93ad", outlier.shape = NA) +
+  geom_jitter(width = 0, col = "#5c475b", fill = "#FFFFFF", alpha = .7, shape = 21, size = 1, stroke = 1) +
+  xlab(" ") +
   ylab("Overall Accuracy") +
   scale_y_continuous(breaks = seq(0.25, 1.00, 0.25), limits = c(0.25, 1.00)) +
   theme_classic() +
@@ -463,9 +474,9 @@ acc_plot <- ggplot(summary_data, aes(x = "", y = Accuracy_mean)) +
         legend.title = element_blank(),
         legend.text = element_text(color = "grey20", size = 12),
         axis.text.x = element_text(color = "grey20", size = 16),
-        axis.text.y = element_text(color = "grey20", size = 12),  
-        axis.title.x = element_text(color = "grey20", size = 12, face = "bold"),
-        axis.title.y = element_text(color = "grey20", size = 12, vjust = 0.5, face = "bold"))
+        axis.text.y = element_text(color = "grey20", size = 16),  
+        axis.title.x = element_text(color = "grey20", size = 16, face = "bold"),
+        axis.title.y = element_text(color = "grey20", size = 16, vjust = 0.5, face = "bold"))
 
 
 ### Proportion of Joint Retrieval
@@ -475,7 +486,7 @@ summary_data_joint_ret_long <- pivot_longer(summary_data,
                                             names_to = "source",
                                             values_to = "prop_joint_retrieval") |>
   rowwise() |>
-  mutate(source_cleaned = ifelse(source == "Data_model_overall", "Data", "Independent Model")) |>
+  mutate(source_cleaned = ifelse(source == "Data_model_overall", "Data", "Ind. Model")) |>
   select(subject_id, source, source_cleaned, prop_joint_retrieval)
 
 #### make plot
@@ -483,7 +494,7 @@ ret_plot <- ggplot(summary_data_joint_ret_long, aes(x = source_cleaned, y = prop
   geom_boxplot(width = 0.15, outlier.shape = NA, position = position_dodge(1)) +
   geom_jitter(aes(col = source_cleaned, x = source_cleaned), position = position_jitter(width = 0), alpha = .7, shape = 21, size = 1, stroke = 1) +
   xlab("Young Adults") +
-  ylab("Proportion of Joint\nRetrieval") +
+  ylab("Proportion of\nJoint Retrieval") +
   scale_y_continuous(breaks = seq(0.40, 1.00, 0.1), limits = c(0.40, 1.00)) +
   scale_fill_manual(values = c("#ad93ad", "#dbb5d6")) +
   scale_color_manual(values = c("#5c475b", "#573350")) +
@@ -493,20 +504,20 @@ ret_plot <- ggplot(summary_data_joint_ret_long, aes(x = source_cleaned, y = prop
         legend.title = element_blank(),
         legend.text = element_text(color = "grey20", size = 10),
         legend.position = "none",
-        axis.text.x = element_text(color = "grey20", size = 12),
-        axis.text.y = element_text(color = "grey20", size = 10),  
-        axis.title.x = element_text(color = "grey20", size = 12, vjust = -0.5, face = "bold"),
-        axis.title.y = element_text(color = "grey20", size = 12, vjust = 0.5, face = "bold"))
+        axis.text.x = element_text(color = "grey20", size = 13),
+        axis.text.y = element_text(color = "grey20", size = 16),  
+        axis.title.x = element_text(color = "grey20", size = 22, vjust = 0, face = "bold"),
+        axis.title.y = element_text(color = "grey20", size = 16, vjust = 0.5, face = "bold"))
 
 
 ### Dependency
 #### make plot
 dep_plot <- ggplot(summary_data, aes(x = "", y = Dependency_overall)) +
-  geom_boxplot(width = 0.15, fill = "#4f50a2", outlier.shape = NA) +
-  geom_jitter(width = 0, col = "#363986", alpha = .7, shape = 21, size = 1, stroke = 1) +
+  geom_boxplot(width = 0.15, fill = "#ad93ad", outlier.shape = NA) +
+  geom_jitter(width = 0, col = "#5c475b", fill = "#FFFFFF", alpha = .7, shape = 21, size = 1, stroke = 1) +
   geom_hline(yintercept = 0.0, col = "red", lty = "dashed") +
-  xlab("Young Adults") +
-  ylab("Retrieval Dependency") +
+  xlab(" ") +
+  ylab("Dependency") +
   scale_y_continuous(breaks = seq(-0.50, 0.50, 0.1), limits = c(-0.50, 0.50)) +
   theme_classic() +
   theme(panel.grid = element_blank(),
@@ -514,29 +525,98 @@ dep_plot <- ggplot(summary_data, aes(x = "", y = Dependency_overall)) +
         legend.title = element_blank(),
         legend.text = element_text(color = "grey20", size = 12),
         axis.text.x = element_text(color = "grey20", size = 16),
-        axis.text.y = element_text(color = "grey20", size = 12),  
-        axis.title.x = element_text(color = "grey20", size = 12, face = "bold"),
-        axis.title.y = element_text(color = "grey20", size = 12, vjust = 0.5, face = "bold"))
+        axis.text.y = element_text(color = "grey20", size = 16),  
+        axis.title.x = element_text(color = "grey20", size = 16, face = "bold"),
+        axis.title.y = element_text(color = "grey20", size = 16, vjust = 0.5, face = "bold"))
 ```
 
-```{r data-replicated, fig.margin=TRUE, fig.cap='Fig. 5b: Attempted replication of key data from the current study. The dashed red line on the "Retrieval Dependency" figure indicates the test value of 0 used in the t-test (i.e., retrieval dependency scores significantly greater than 0).', echo=TRUE}
+```{r data-replicated, fig.margin=TRUE, fig.cap='Fig. 6: Attempted replication of key data from the current study. (a) Jittered distribution of overall accuracy on the cued-recognition memory task. (b) Jittered distribution of the proportion of joint retrieval for the actual data and the independent statistical model (Ind. Model). (c) Jittered distribution of retrieval dependency scores. The dashed red line on the figure indicates the test value of 0 used in the t-test (i.e., retrieval dependency scores significantly greater than 0).', out.width="100%", out.height="30%", echo=TRUE}
 ### Combine Plots for Rendered Report
-ggpubr::ggarrange(acc_plot, ret_plot, dep_plot, ncol = 2, nrow = 2, widths = c(1,1), heights = c(2,2))
+ggpubr::ggarrange(acc_plot, ret_plot, dep_plot, ncol = 3, nrow = 1, widths = c(1,2,1),
+                  labels = c('(a)', '(b)', '(c)'))
 ```
 
 ### Exploratory Analyses
-
 ```{r}
-### pair age data with dependency and accuracy data
+### merge demographic data with memory data
 exploratory_analysis <- merge(summary_data, demographics_trials, by = "subject_id")
+```
 
-### run linear model of age (years) predicting summary dependency scores (n = 12 measures)
-dep_lm <- lm(Dependency_overall ~ as.numeric(Age), data = exploratory_analysis)
-summary(dep_lm) ## not significant
+#### Gender Differences for Retrieval Accuracy
+```{r}
+### remove prefer not to answer participant
+exploratory_analysis_trimmed <- exploratory_analysis |>
+  filter(Gender != "PreferNotToAnswer")
 
+### run t-test
+gender_acc <- t.test(Accuracy_mean ~ as.factor(Gender), data = exploratory_analysis_trimmed)
+gender_acc
+
+### get bayes factor
+gender_acc_bf <- ttestBF(as.factor(exploratory_analysis_trimmed$Gender), exploratory_analysis_trimmed$Accuracy_mean)
+gender_acc_bf
+```
+
+I expected no gender differences on accuracy and found no differences in retrieval accuracy for male (*M* = `r round(gender_acc$estimate[2], 2)`) compared to female (*M* = `r round(gender_acc$estimate[1], 2)`) identifying young adult participants, *t*(`r round(gender_acc$parameter, 2)`) = `r round(gender_acc$statistic, 2)`, *p* = `r round(gender_acc$p.value, 3)`, *d* = `r round(effectsize::cohens_d(gender_acc)$d, 2)`, 95% CI = [`r round(effectsize::cohens_d(gender_acc)$CI_low, 2)`, `r round(effectsize::cohens_d(gender_acc)$CI_high, 2)`], $BF_{10}$ = 379.13.
+
+#### Gender Differences for Retrieval Dependency
+```{r}
+### run t-test
+dependency_acc <- t.test(Dependency_overall ~ as.factor(Gender), data = exploratory_analysis_trimmed)
+dependency_acc
+
+### get bayes factor
+dependency_acc_bf <- ttestBF(as.factor(exploratory_analysis_trimmed$Gender), exploratory_analysis_trimmed$Dependency_overall)
+dependency_acc_bf
+```
+
+I expected no gender differences in retrieval dependency and found no differences in retrieval dependency for male (*M* = `r round(dependency_acc$estimate[2], 2)`) compared to female (*M* = `r round(dependency_acc$estimate[1], 2)`) identifying young adult participants, *t*(`r round(dependency_acc$parameter, 2)`) = `r round(dependency_acc$statistic, 2)`, *p* = `r round(dependency_acc$p.value, 3)`, *d* = `r round(effectsize::cohens_d(dependency_acc)$d, 2)`, 95% CI = [`r round(effectsize::cohens_d(dependency_acc)$CI_low, 2)`, `r round(effectsize::cohens_d(dependency_acc)$CI_high, 2)`], $BF_{10}$ = 231812.
+
+#### Age Effects of Retrieval Accuracy
+```{r}
 ### run linear model of age (years) predicting summary accuracy scores (n = 12 measures)
 acc_lm <- lm(Accuracy_mean ~ as.numeric(Age), data = exploratory_analysis)
 summary(acc_lm) ## not significant
+
+### get all individual accuracy scores by block (n = 12 * 6 blocks = 72 measures)
+all_acc_indv_scores <- exploratory_analysis |>
+  select(subject_id, Accuracy_AbAc:Accuracy_AbCb, Age) |>
+  pivot_longer(starts_with("Accuracy_"), names_to = "Block", values_to = "Score")
+
+### run linear model of age (years) predicting all individual accuracy scores by block (n = 72 measures)
+acc_indv_lm <- lm(Score ~ as.numeric(Age), data = all_acc_indv_scores)
+summary(acc_indv_lm) ## not significant
+
+### make plot
+ggplot(all_acc_indv_scores, aes(x = as.numeric(Age), y = Score)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "red") +
+  xlab("Chronological Age (years)") +
+  ylab("Overall Accuracy") +
+  scale_x_continuous(breaks = seq(18, 27, 1), limits = c(18, 27)) +
+  scale_y_continuous(breaks = seq(0, 1, 0.2), limits = c(0, 1)) +
+  labs(title = paste("R^2 = ",signif(summary(acc_indv_lm)$r.squared, 1),
+                     ", Intercept =",signif(acc_indv_lm$coef[[1]], 1),
+                     ", Slope =",signif(acc_indv_lm$coef[[2]], 1),
+                     ", p =",signif(summary(acc_indv_lm)$coef[2,4], 2))) +
+  theme_classic() +
+  theme(panel.grid = element_blank(),
+        panel.border = element_blank(),
+        legend.title = element_blank(),
+        legend.text = element_text(color = "grey20", size = 12),
+        axis.text.x = element_text(color = "grey20", size = 16),
+        axis.text.y = element_text(color = "grey20", size = 16),  
+        axis.title.x = element_text(color = "grey20", size = 16, face = "bold"),
+        axis.title.y = element_text(color = "grey20", size = 16, vjust = 0.5, face = "bold"))
+```
+
+I found no effect of age on overall accuracy, $R^2$ = `r signif(summary(acc_indv_lm)$r.squared, 1)`, *p* = `r signif(summary(acc_indv_lm)$coef[2,4], 2)`.
+
+#### Age Effects of Retrieval Dependency
+```{r}
+### run linear model of age (years) predicting summary dependency scores (n = 12 measures)
+dep_lm <- lm(Dependency_overall ~ as.numeric(Age), data = exploratory_analysis)
+summary(dep_lm) ## not significant
 
 ### get all individual dependency scores by block (n = 12 * 6 blocks = 72 measures)
 all_dep_indv_scores <- exploratory_analysis |>
@@ -552,7 +632,7 @@ ggplot(all_dep_indv_scores, aes(x = as.numeric(Age), y = Score)) +
   geom_point() +
   geom_smooth(method = "lm", col = "red") +
   xlab("Chronological Age (years)") +
-  ylab("Retrieval Dependency") +
+  ylab("Dependency") +
   scale_x_continuous(breaks = seq(18, 27, 1), limits = c(18, 27)) +
   scale_y_continuous(breaks = seq(-0.50, 0.50, 0.1), limits = c(-0.50, 0.50)) +
   labs(title = paste("R^2 = ",signif(summary(dep_indv_lm)$r.squared, 1),
@@ -565,44 +645,43 @@ ggplot(all_dep_indv_scores, aes(x = as.numeric(Age), y = Score)) +
         legend.title = element_blank(),
         legend.text = element_text(color = "grey20", size = 12),
         axis.text.x = element_text(color = "grey20", size = 16),
-        axis.text.y = element_text(color = "grey20", size = 12),  
-        axis.title.x = element_text(color = "grey20", size = 12, face = "bold"),
-        axis.title.y = element_text(color = "grey20", size = 12, vjust = 0.5, face = "bold"))
-
-### get all individual accuracy scores by block (n = 12 * 6 blocks = 72 measures)
-all_acc_indv_scores <- exploratory_analysis |>
-  select(subject_id, Accuracy_AbAc:Accuracy_AbCb, Age) |>
-  pivot_longer(starts_with("Accuracy_"), names_to = "Block", values_to = "Score")
-
-### run linear model of age (years) predicting all individual accuracy scores by block (n = 72 measures)
-acc_indv_lm <- lm(Score ~ as.numeric(Age), data = all_acc_indv_scores)
-summary(acc_indv_lm) ## not significant
+        axis.text.y = element_text(color = "grey20", size = 16),  
+        axis.title.x = element_text(color = "grey20", size = 16, face = "bold"),
+        axis.title.y = element_text(color = "grey20", size = 16, vjust = 0.5, face = "bold"))
 ```
+
+I found a significant negative effect of age on overall accuracy, $R^2$ = `r signif(summary(dep_indv_lm)$r.squared, 1)`, *p* = `r signif(summary(dep_indv_lm)$coef[2,4], 2)`.
 
 ## Discussion
 
 ### Summary of Replication Attempt
-I found no significant difference between young adult participants' retrieval dependency scores from 0, thus failing to replicate the original effect (Figure 5b). Retrieval dependency scores in the positive direction (i.e., greater than 0) are indicative of retrieval dependency, or the principle that holistic event retrieval success via hippocampal pattern completion is contingent on the retrieval success of the other elements encoded in the episodic memory trace (see Figure 5a). Not finding a significant effect of retrieval dependency indicates that accuracy of episodic memory recollection was not mutually contingent for within-event test trials. 
+I found no significant difference between young adult participants' retrieval dependency scores from 0, thus failing to replicate the original effect (Figure 6c). Retrieval dependency scores in the positive direction (i.e., greater than 0) are indicative of retrieval dependency, or the principle that holistic event retrieval success via hippocampal pattern completion is contingent on the retrieval success of the other elements encoded in the episodic memory trace (see Figure 5). Bayes factor suggested anecdotal evidence in support of the null hypothesis. Overall, not finding a significant effect of retrieval dependency indicates that accuracy of episodic memory recollection was not mutually contingent for cue-test pairs on within-event test trials. 
 
-Further inspection of the data indicate that `r sum(summary_data$Dependency_overall > 0)` of `r length(summary_data$Dependency_overall)` participants in the current replication attempt had retrieval dependency scores greater than 0. This is somewhat hopeful in that only 1/3 of participants in the current study had negative retrieval dependency (i.e., mutually contingent accuracy for forgetting). In the original study, 31 young adult undergraduate students participated in this task, in a controlled, in-person laboratory environment [@ngo2019development]. There, 29 out of 31 participants had retrieval dependency scores greater than 0. Considering the large effect size (Cohen's *d* = 1.32) found in the original study [@ngo2019development], and that my *a priori* power analysis suggested that 11 participants were needed to achieve 80% power for an effect size of Cohen's *d* = 0.80, I was surprised that I did not find this strong effect in my attempted replication. Although none of the participants in my online replication attempt via [Prolific.co](https://prolific.co) reported cheating on the task or experiencing technical difficulties, it is possible that the experience of completing the task in an uncontrolled environment online negatively influenced the results away from the expected strong retrieval dependency effect.
+Further inspection of the data indicated that `r sum(summary_data$Dependency_overall > 0)` of `r length(summary_data$Dependency_overall)` participants in the current replication attempt had retrieval dependency scores greater than 0. This is somewhat hopeful in that only 1/3 of participants in the current study had negative retrieval dependency (i.e., mutually contingent accuracy for forgetting). In the original study, 31 young adult undergraduate students participated in this task, in a controlled, in-person laboratory environment [@ngo2019development]. There, 29 out of 31 participants had retrieval dependency scores greater than 0. Considering the large effect size (Cohen's *d* = 1.32) found in the original study [@ngo2019development], and that my *a priori* power analysis suggested that 11 participants were needed to achieve 80% power for an effect size of Cohen's *d* = 0.80, I was surprised that I did not find this strong effect in my attempted replication. Although none of the participants in my online replication attempt via [Prolific.co](https://prolific.co) reported cheating on the task or experiencing technical difficulties, it is possible that the experience of completing the task in an uncontrolled environment online negatively influenced the results away from the expected strong retrieval dependency effect. 
 
-Hippocampal pattern completion is well supported in the literature as the neural mechanism for holistic episodic memory retrieval ability [@marr1971simple; @mcclelland1995there; @norman2003modeling]. It is therefore unlikely that this failed replication attempt signifies issues with contemporary theories of episodic memory recollection. Rather, the current paradigm, experimental parameters, and metrics used in the original study by [@ngo2019development] likely reflect an upper-bound on performance and experimental context that do not generalize well to small sample sizes and less controlled environments. Furthermore, it is also likely that the very large effect size reported in the original study reflect a false positive in the strength of this effect, given the failed replication event on a small sample size that was sufficient according to *a priori* power analyses. Future research should follow-up and assess the validity of this metric and the relative strength of the effect it can detect at small sample sizes and more generalizable episodic memory scenarios. Additionally, intential comparisons of episodic memory recollection in controlled versus more distracting environments could be useful for understanding how retrieval dependency strength is dampended when individuals may be experiencing attention lapsing or distractions [@madore2020memory].
+Accuracy overall was highly variable but not necessarily at floor or ceiling. The mean overall accuracy on this task was slightly above 50% while the original study found accuracy scores approaching 75% for young adult undergraduate students that were collected in a controlled university laboratory environment. Specifically, participating in this study from home in an uncontrolled environment is likely to be associated with the variability observed in the performance accuracy on this memory task. Levels of attention are highly correlated with episodic memory performance [@baddeley1984attention; @craik1996effects; @anderson1995status; @evans2019pre; @curran2004effects], and memory failures are likely to occur when attention is lapsing and/or one is multitasking [@madore2020memory]. Attention lapsing due to potential multitasking behavior with online studies and/or with uncontrolled home environments is something challenging to control for here. One way to measure potential multitasking behavior during the online experiment session is to capture window behavior (i.e., the overall proportion of time the cursor was present in the current experiment window of the browser with respect to the task) to see if participants were switching tabs/windows on their computer while participating. These data were collected in the current replication attempt but no exclusion rules utilizing these data were included in the formal preregistration; therefore, excluding participants who leave the browser window for any reason, or who surpass some threshold of a prolonged period of time away from the experimental window, should thus be implemented in a future iteration of this study to hopefully catch individuals who may be multitasking on the same device they are using to participate in the primary task on. Importantly to note, this measure would not capture multitasking on other devices such as mobile phones, background music, and/or television screens projecting video in the background while the participant engages with their desktop/laptop computer. Accordingly, additional post-experiment questions asking participants to self-report whether or not they did anything else during the task (while ensuring the participants know that they will get paid no matter their responses to encourage honest answers), and/or using webcam based eye-tracking software integrations, could also help curb potential distraction effects for online memory studies that require high levels of attention and focus during the experimental session. Thus, variability in task performance observed here is likely due to the online nature of the study, and the variability might be lessened with a larger sample size and additional attention check measures. 
+
+Furthermore, there appear to be two strong outliers (low accuracy near 25% as well as largely negative dependency scores), and these outliers were independent of one another (i.e., not the same participants: the two participants with low accuracy had decent dependency scores while the other two participants with high accuracy and largely negative dependency scores). This indicates that participants can achieve strong retrieval dependency of holistic episodic memories while only getting a few of episodes correct overall (i.e., strong dependency, low accuracy), while others might only remember a decent amount of cue-test pairs independently of other cue-test pairs across the objects, scenes, and events from the holistic episodes (i.e., weak/negative dependency, high accuracy). Overall, these two retrieval dependency outliers here may have dampened the anticipated effect from the original paper [@ngo2019development]. A future iteration should therefore consider potential *a priori* exclusion cut-offs for scores (e.g., scores greater than 2 SDs in either direction); however, this may still adversely impact results as this would exclude participants who actually exhibit strong retrieval dependency effects and thus might not accurately capture the population distribution of retrieval dependency effects generated by the underlying neural circuitry supporting episodic memory pattern completion and recollection in the hippocampus. It may instead be more useful to consider ways to guide and focus attention on the task, and perhaps reward participants with bonus payments for their sustained engagement and interaction with the experiment, as measured through the proportion of time on screen and/or via web camera eye-tracking software, for instance.
+
+In conclusion, hippocampal pattern completion is well supported in the literature as the neural mechanism subserving holistic episodic memory retrieval ability [@marr1971simple; @mcclelland1995there; @norman2003modeling]. It is therefore unlikely that this failed replication attempt signifies issues with contemporary theories of episodic memory recollection and the neural underpinnings of this prominent memory behavior. Rather, the current paradigm, experimental parameters, and results reported in the original study by [@ngo2019development] likely reflect an upper-bound on performance and context that may not generalize well to small sample sizes and less controlled environments. Furthermore, it is also likely that the very large effect size reported in the original study reflects a false positive in the strength of this effect, given the failed replication event on a small sample size that was sufficient according to an *a priori* power analysis. Future research should follow-up and assess the validity of this retrieval dependency metric and the relative strength of the effect it can detect with both small sample sizes and more generalizable episodic memory stimuli and testing contexts. Additionally, comparisons of episodic memory recollection in controlled versus more distracting environments could be useful for understanding how retrieval dependency strength is dampened when individuals may be experiencing attention lapsing or distractions [@madore2020memory].
 
 ### Commentary
 
-Overall, the failure to replicate this strong effect was not expected but reveals important implications for my future work studying episodic memory retrieval. Specifically, I am skeptical of the sensitivity and validity of this specific metric used to quantify retrieval dependency given the strong evidence in support of hippocampal pattern completion ability in mammalian neural substrate [@marr1971simple; @mcclelland1995there; @norman2003modeling]. I am further interested in uncovering what is required with respect to sample size and environmental conditions to achieve this effect in a less controlled online settings. Further, given that the study method I implemented was nearly identical to that of the original study, I find it most plausible that they key difference between the current replication attempt and the original study was the small sample size recruited online moderated the anticipated effect. The lead author of the original study was well in support and excited by my replication attempt, and I believe that further discussion and dissection of my findings could be useful to further use of these materials and method in the domain of episodic memory encoding and retrieval studies.
+Overall, the failure to replicate this strong effect was not expected but reveals important implications for my future work studying episodic memory retrieval. Specifically, I am skeptical of the sensitivity and validity of this specific metric used to quantify retrieval dependency given the strong evidence in support of hippocampal pattern completion ability in mammalian neural substrate [@marr1971simple; @mcclelland1995there; @norman2003modeling]. I am further interested in uncovering what is required with respect to sample size and environmental conditions to achieve this effect in a less controlled online settings. Further, given that the study method I implemented was nearly identical to that of the original study, I find it most plausible that they key difference between the current replication attempt and the original study was that the small sample size recruited online moderated the anticipated effect. Moreover, the lead author of the original study was well in support and excited by my replication attempt, and I believe that further discussion and dissection of my findings could be useful for future refinement of the stimuli, design, and methods used when conducting studies in the domain of episodic memory encoding and retrieval across the lifespan.
 
-The exploratory analyses I conducted are interesting in that retrieval dependency scores significantly decrease with chronological age (in years). This makes sense in light of evidence suggestion that episodic memory ability is impaired with increasing age in older adults [@trelle2020hippocampal]. This significant effect should be interpreted with caution given that there was not wide sampling distribution across ages and relatively few data points input into the regression model. Furthermore, retrieval dependency data aggregated across all six retrieval blocks (i.e., 72 data points) were used rather than the overall summary retrieval dependency data (i.e., 12 data points) to increase power in the regression model; this linear model using only the 12 summary data points for retrieval dependency was not significant. Thus, larger scale replications of this study should ensure strong representation of each age group to more confidently interpret age effects on retrieval dependency.
+The exploratory analyses I conducted are interesting in that retrieval dependency scores significantly decrease with chronological age (in years). This makes sense in light of recent evidence suggesting that episodic memory ability is impaired with increasing age in older adults [@trelle2020hippocampal]. Though, this significant effect should be interpreted with caution given that there was not wide sampling distribution across ages and relatively few data points input (per age group and overall) into the regression model. Furthermore, retrieval dependency data aggregated across all six retrieval blocks (i.e., 72 data points) were used rather than the overall summary retrieval dependency data (i.e., 12 data points) to increase power in the regression model; this linear model using only the 12 summary data points for retrieval dependency was not significant. Thus, larger scale replications of this study should ensure strong representation of each age group to more confidently interpret age effects on retrieval dependency. Overall, I would not necessarily regard this exploratory analysis as substantially interesting/informative given (i) low variance explained (7%), (ii) no control fixed-effects, (iii) low sample size, and (iv) narrow age range of young adults which is unevenly sampled across age groups. Rather, a stratified adult lifespan sample with dense sampling across all age groups would provide a more meaningful and robust measure of potential episodic memory effects with increasing age.
 
-Additionally, the exploratory analysis of retrieval accuracy scores predicted by chronological age (in years) was not significant for either the summary (12 measures) or aggregated block (72 measures) data. Caution in interpretation aside, this might suggest that overall memory capacity with increasing age in young adults is relatively stable. Yet, taking into account the decline in retrieval dependency strength from the above analyses might suggest that the ability to distinctly separate overlapping neural pattern during cortical reinstatement of episodic memory traces decreases as we get older but our ability to remember information independent of the context in which it was originally encoded is not as effected. Again and crucially, these interpretations are limited to a very small sample size and number of measures, as well as disparetly sampled age groups that must be interpreted with caution.
+Additionally, the exploratory analysis of retrieval accuracy scores predicted by chronological age (in years) was not significant for either the summary (12 measures) or aggregated block (72 measures) data. Caution in interpretation aside, this might suggest that overall memory capacity with increasing age in young adults is relatively stable. Yet, taking into account the decline in retrieval dependency strength from the above analyses might suggest that the ability to distinctly separate overlapping neural patterns during cortical reinstatement of episodic memory traces decreases as we get older while our ability to remember information independent of the context in which it was originally encoded is not as impacted. Again and crucially, these interpretations are limited to a very small sample size and number of measures, as well as across disparately sampled age groups that must be interpreted with caution.
 
-One last concern I have with this study relates to the stimulus set used. Figure 6a shows one example of an encoding event with high semantic relatedness (i.e., a holiday scene with snow, a movie character with a scarf, and a holiday-look wrapped gift). This contrasts the type of encoding event shown in Figure 6b, or an encoding event with low semantic relatedness. This stimulus set was originally designed for use with young children for developmental work; however, despite these intentions, the high variability in this stimulus set used by the original authors seems problematic such that highly related encoding events might be easier to string together when forming a story and might be aided during other mnemonic memory strategies -- like relying on prior semantic associations -- that might inherently boost memory on certain trials and thus not accurately reflect episodic memory associations on the current task. In both the original study and my direct replication attempt, I used the stimuli exactly as were provided: as static images where all episodic encoding event triplets were pre-made and thus not randomly assigned. The only randomization that occurred during encoding was the randomization of the order that these 24 encoding events were presented in. A future study should (1) randomize the contextual episodes, and (2) should use more complex stimuli when assessing pattern completion for episodic memory retrieval in adult participants.
+Lastly, I found no gender effects on either performance metric, and Bayes factors were in extreme support of the evidence for these effects.
 
-```{r encoding-event-example-high-semantic, fig.margin=TRUE, out.width="75%", fig.cap='Fig. 6a: Example of an encoding event with high semantic relatedness from the original stimulus set.', echo=FALSE}
+One last concern I have with this study relates to the stimulus set used. Figure 7a shows one example of an encoding event with high semantic relatedness (i.e., a holiday scene with snow, a movie character with a scarf, and a holiday-themed wrapped gift). This contrasts the type of encoding event shown in Figure 7b, or an encoding event with low semantic relatedness. This stimulus set was originally designed for use with young children for developmental work; however, despite these intentions, the high variability in this stimulus set used by the original authors seems problematic such that highly related encoding events might be easier to string together when forming a story and might be aided during retrieval via other mnemonic memory strategies -- like relying on prior semantic associations -- that might inherently boost memory and *cue-test pairs* on certain trials and thus not accurately reflect episodic memory associations for retrieval dependency on the current task. In both the original study and my direct replication attempt, I used the stimuli exactly as were provided by the original author: as static images where all episodic encoding event triplets were pre-made and thus not randomly assigned. The only randomization that occurred during encoding was the randomization of the order that these 24 encoding event triads were presented in. Therefore, a future study should (1) randomize the contents contained within each contextual episode, and (2) should use more complex stimuli that minimize potential semantic associations with the other elements contained within when assessing pattern completion for episodic memory retrieval in adult participants.
+
+```{r encoding-event-example-high-semantic, fig.margin=TRUE, out.width="75%", fig.cap='Fig. 7a: Example of an encoding event with high semantic relatedness from the original stimulus set.', echo=FALSE}
 knitr::include_graphics("figures/Event_16.jpg")
 ```
 
-```{r encoding-event-example-low-semantic, fig.margin=TRUE, out.width="75%", fig.cap='Fig. 6b: Example of an encoding event with low semantic relatedness from the original stimulus set.', echo=FALSE}
+```{r encoding-event-example-low-semantic, fig.margin=TRUE, out.width="75%", fig.cap='Fig. 7b: Example of an encoding event with low semantic relatedness from the original stimulus set.', echo=FALSE}
 knitr::include_graphics("figures/Event_12.jpg")
 ```
 
